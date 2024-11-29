@@ -13,16 +13,23 @@ export default function Bingstagram() {
 
   // 사진 배열의 useState
   const [picture, setPicture] = useState(pictures);
+
   // 삭제된 사진 배열의 useState
-  const [deletedPicture, setDeletedPicture] = useState<string[]>([]);
+  // 삭제된 사진과 삭제된 위치를 저장하기 위해 타입을 (사진과 인덱스를 가진)객체 배열로 지정
+  const [deletedPicture, setDeletedPicture] = useState<
+    { image: string; index: number }[]
+  >([]);
 
   // 삭제 로직
   const handleDelete = (index: number) => {
     // 삭제할 사진을 deleteTarget에 할당
     const deleteTarget = picture[index];
-    // setDeletedPicture을 사용하여 이 전에 지워진 사진이 있다면 현 시점에 지워진 사진 앞에 먼저 나열한 후, 그 뒤에 현재 지워진 사진을 추가
+    // setDeletedPicture을 사용하여 이 전에 지워진 사진이 있다면 지워진 사진을 뒤에 나열하고, 그 앞에 현재 지워진 사진을 추가
     // 추후에 사진을 복구할 때 삭제된 사진 배열의 앞에서부터(최근 삭제된 사진부터) 꺼내기 위함
-    setDeletedPicture((prevDeleted) => [deleteTarget, ...prevDeleted]);
+    setDeletedPicture((prevDeleted) => [
+      { image: deleteTarget, index },
+      ...prevDeleted,
+    ]);
     // setPicture을 사용하여 지워진 사진을 제외한 사진들을 화면에 렌더링
     setPicture((prevPictures) => prevPictures.filter((_, i) => i !== index));
   };
@@ -31,10 +38,17 @@ export default function Bingstagram() {
   const handleRestore = () => {
     // 복구할 사진이 있는 경우(즉, 삭제된 사진이 있는 경우)에 실행하기 위하여 length가 0 이상인 경우를 가정
     if (deletedPicture.length > 0) {
-      // 가장 최근 삭제된 사진(삭제된 사진 배열에 첫 번째 요소)을 lastestDeleted에 할당
-      const lastestDeleted = deletedPicture[0];
+      // 가장 최근 삭제된 사진(삭제된 사진 배열의 첫 번째 요소)을 {image, index} 객체를 추출
+      const { image, index } = deletedPicture[0];
       // setPicture을 사용하여, 삭제된 사진이 복구되기 전에 남아있던 사진들을 나열하고, 그 뒤에 최근 삭제된 사진을 추가
-      setPicture((prevPictures) => [...prevPictures, lastestDeleted]);
+      setPicture((prevPictures) => {
+        // 'newPicturesArr'에 삭제되지 않은 사진들을 배열로 할당
+        const newPicturesArr = [...prevPictures];
+        // 'newPicturesArr에 splice를 사용하여 복구할 사진의 인덱스 위치에 기존 사진을 지우지 않고, 사진을 추가
+        newPicturesArr.splice(index, 0, image);
+        // 수정된 newPicturesArr를 반환
+        return newPicturesArr;
+      });
       // setDeletedPicture을 사용하여, 이전에 삭제된 사진들의 배열에서 첫 번째 요소를 잘라냄
       setDeletedPicture((prevDeleted) => prevDeleted.slice(1));
     }
