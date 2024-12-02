@@ -53,13 +53,15 @@ export default function FormReducer() {
     if (!state.name || !state.email || !state.password) {
       // 에러처리
       dispatch({ type: 'SET_ERROR', error: '입력 값을 모두 입력하세요' });
+      return;
     }
+
     if (state.isSubmit) return;
     dispatch({ type: 'SET_ERROR', error: '' });
     dispatch({ type: 'SUBMIT_START' });
 
     try {
-      new Promise((resolve) => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       dispatch({ type: 'SUBMIT_SUCCESS' });
     } catch (error) {
       if (error) dispatch({ type: 'SET_ERROR', error: '폼 전송 중 에러 발생' });
@@ -98,7 +100,7 @@ export default function FormReducer() {
             onChange={changeHandler}
           />
         </label>
-        {state.error && <div>{state.error}</div>}
+        {state.error && <div style={{ color: 'red' }}>{state.error}</div>}
         <button type='submit' disabled={state.isSubmit}>
           회원가입
         </button>
