@@ -28,19 +28,19 @@ export default function Todo() {
   const [input, setInput] = useState<string>("");
   //투두리스트 상태
   const [todos, setTodos] = useState<todoType[]>(todoSample);
+  //id
+  const idRef = useRef(3);
 
   // 투두리스트 추가 함수
   const addTodo = (value: string) => {
-    //마지막 배열 인덱스 번호
-    const lastIndex = todos[todos.length - 1].id + 1;
-
+    console.log("addTodo 호출");
     if (value.trim() === "") {
       alert("내용을 입력해 주세요");
       inputRef.current?.focus();
     } else
       setTodos((todos) => [
         ...todos,
-        { id: lastIndex, content: value, completed: false },
+        { id: idRef.current++, content: value, completed: false },
       ]);
     setInput("");
     inputRef.current?.focus();
