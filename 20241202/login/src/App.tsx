@@ -1,5 +1,5 @@
-import Login from "./components/Login";
+import Loginv2 from "./components/Loginv2";
 
 export default function App() {
-  return <Login />;
+  return <Loginv2 />;
 }
