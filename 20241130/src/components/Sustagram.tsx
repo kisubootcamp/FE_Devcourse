@@ -8,8 +8,6 @@ export default function Sustagram() {
   const [images, setImages] = useState<string[]>(imgArr);
   const [deletedImg, setDeletedImg] = useState<string[]>([]);
 
-  console.log(deletedImg);
-
   const handleDeleteImg = (value: string) => {
     setImages((prevImages) => [
       ...prevImages.filter((image) => image !== value),

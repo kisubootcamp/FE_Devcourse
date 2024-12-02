@@ -1,7 +1,7 @@
 interface ImageProps {
   value: string;
   index: number;
-  onDeleteImg: (val: string) => void;
+  onDeleteImg: (val: string, i: number) => void;
 }
 
 export default function Image({ value, index, onDeleteImg }: ImageProps) {
@@ -19,7 +19,7 @@ export default function Image({ value, index, onDeleteImg }: ImageProps) {
           />
         </a>
         <button
-          onClick={() => onDeleteImg(value)}
+          onClick={() => onDeleteImg(value, index)}
           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-red-500 text-white hover:bg-red-600 h-10 w-10 absolute top-2 right-2 rounded-full"
         >
           <img src="/delete.svg" alt="Delete icon" className="h-4 w-4" />
