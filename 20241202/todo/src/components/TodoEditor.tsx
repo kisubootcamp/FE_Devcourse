@@ -2,7 +2,7 @@ import { useState } from "react";
 
 type TodoEditorProps = {
   setList: React.Dispatch<
-    React.SetStateAction<{ id: number; content: string }[]>
+    React.SetStateAction<{ id: number; content: string; checked: boolean }[]>
   >;
 };
 
@@ -14,7 +14,7 @@ export default function TodoEditor({ setList }: TodoEditorProps) {
   const addClickHandler = () => {
     if (!input) return;
     const newId = Date.now();
-    setList((prev) => [...prev, { id: newId, content: input }]);
+    setList((prev) => [...prev, { id: newId, content: input, checked: false }]);
     setInput("");
   };
   const keydown = (e: React.KeyboardEvent<HTMLInputElement>) => {

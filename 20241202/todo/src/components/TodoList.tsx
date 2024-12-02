@@ -1,9 +1,9 @@
 import TodoListItem from "./TodoListItem";
 
 type TodoListProps = {
-  list: { id: number; content: string }[];
+  list: { id: number; content: string; checked: boolean }[];
   setList: React.Dispatch<
-    React.SetStateAction<{ id: number; content: string }[]>
+    React.SetStateAction<{ id: number; content: string; checked: boolean }[]>
   >;
 };
 

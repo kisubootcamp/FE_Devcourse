@@ -1,9 +1,7 @@
-import { useState } from "react";
-
 type TodoListProps = {
-  item: { id: number; content: string };
+  item: { id: number; content: string; checked: boolean };
   setList: React.Dispatch<
-    React.SetStateAction<{ id: number; content: string }[]>
+    React.SetStateAction<{ id: number; content: string; checked: boolean }[]>
   >;
 };
 
@@ -11,19 +9,25 @@ export default function TodoListItem({ item, setList }: TodoListProps) {
   const deleteClickHandler = () => {
     setList((prev) => prev.filter((listItem) => listItem.id !== item.id));
   };
-  const [checked, setChecked] = useState(false);
   const checkboxChangeHandler = () => {
-    setChecked((prev) => !prev);
+    setList((prev) =>
+      prev.map((listItem) =>
+        listItem.id === item.id
+          ? { ...listItem, checked: !listItem.checked }
+          : listItem
+      )
+    );
   };
   return (
     <li className="flex items-center justify-between p-3 border-b hover:bg-gray-100 transition-colors">
       <div className="flex items-center">
         <input
           type="checkbox"
+          checked={item.checked}
           onChange={checkboxChangeHandler}
           className="mr-3 h-4 w-4 text-blue-500 focus:ring-blue-400"
         />
-        <span className={`${checked ? "line-through" : ""}`}>
+        <span className={`${item.checked ? "line-through" : ""}`}>
           {item.content}
         </span>
       </div>
