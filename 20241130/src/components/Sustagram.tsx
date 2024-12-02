@@ -28,17 +28,15 @@ export default function Sustagram() {
     },
   ];
   const [pics, setPics] = useState(picture);
-  const imgRefs = useRef<(HTMLImageElement | null)[]>([]);
+  // const imgRefs = useRef<(HTMLImageElement | null)[]>([]);
   const [deleted, setDeleted] = useState<{ id: number; src: string }[]>([]);
 
-  const deleteHandler = (index: number) => {
-    const targetSrc = imgRefs.current[index]?.src;
-    const targetId = imgRefs.current[index]?.id;
-    setPics(pics.filter((pic) => pic.src !== targetSrc));
-    setDeleted((prev) => [
-      ...prev,
-      { id: Number(targetId), src: String(targetSrc) },
-    ]);
+  const deleteHandler = (id: number) => {
+    const target = pics.find((pic) => pic.id === id);
+    if (target) {
+      setPics(pics.filter((pic) => pic.id !== id));
+      setDeleted((prev) => [...prev, target]);
+    }
   };
 
   const handleUndo = () => {
@@ -65,7 +63,7 @@ export default function Sustagram() {
       </header>
       <div className="grid grid-cols-3 gap-4">
         {pics.map((value, index) => (
-          <div className="group relative" key={index}>
+          <div className="group relative" key={value.id}>
             <a className="group" href="#">
               <img
                 src={value.src}
@@ -75,11 +73,10 @@ export default function Sustagram() {
                 alt={`Photo ${index + 1}`}
                 className="w-full h-full object-cover rounded-lg group-hover:opacity-80 transition-opacity"
                 style={{ aspectRatio: "400 / 400", objectFit: "cover" }}
-                ref={(el) => (imgRefs.current[index] = el)}
               />
             </a>
             <button
-              onClick={() => deleteHandler(index)}
+              onClick={() => deleteHandler(value.id)}
               className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-red-500 text-white hover:bg-red-600 h-10 w-10 absolute top-2 right-2 rounded-full"
             >
               <img src="/delete.svg" alt="Delete icon" className="h-4 w-4" />
