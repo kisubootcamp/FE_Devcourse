@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .text-todo-checked {
+    @apply line-through opacity-50;
+  }
+}
