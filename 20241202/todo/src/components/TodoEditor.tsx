@@ -17,12 +17,19 @@ export default function TodoEditor({ setList }: TodoEditorProps) {
     setList((prev) => [...prev, { id: newId, content: input }]);
     setInput("");
   };
+  const keydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      addClickHandler();
+    }
+  };
   return (
     <div className="flex p-4">
       <input
         type="text"
         value={input}
         onChange={inputChangeHandler}
+        onKeyDown={keydown}
         placeholder="Enter a new todo"
         className="flex-grow p-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
