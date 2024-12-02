@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 import Input from "./html/Input";
 import Checkbox from "./html/Checkbox";
 import Button from "./html/Button";
@@ -37,7 +37,7 @@ const reducer = (state: ReducerState, action: ReducerAction) => {
     case "SUBMIT_START":
       return { ...state, isSubmit: true };
     case "SUBMIT_SUCCESS":
-      return { ...state, isSubmit: false };
+      return { ...initialState };
     case "SUBMIT_END":
       return { ...state, isSubmit: false };
     default:
@@ -46,7 +46,6 @@ const reducer = (state: ReducerState, action: ReducerAction) => {
 };
 
 export default function Login() {
-  const [agree, setAgree] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,10 +116,9 @@ export default function Login() {
               onChange={handleChange}
             />
             <Checkbox
-              checked={agree}
-              onChange={(e) => {
-                setAgree(!agree);
-                dispatch({ type: "CHECKED", checked: e.target.checked });
+              checked={state.checked}
+              onChange={() => {
+                dispatch({ type: "CHECKED" });
               }}
             >
               <span className="text-sm color-[#4f4f4f]">
