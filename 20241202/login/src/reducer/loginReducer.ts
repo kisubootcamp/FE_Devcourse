@@ -3,16 +3,14 @@ export const loginReducer = (
   action: LoginReducerAction
 ) => {
   switch (action.type) {
-    case "SET_FIELD":
-      return { ...state, [action.field!]: action.value };
+    case "SET_EMAIL":
+      return { ...state, mail: action.payload };
+    case "SET_PASSWORD":
+      return { ...state, password: action.payload };
     case "SET_AGREE":
-      return { ...state, agree: !state.agree };
-    case "SET_ALERT":
-      return { ...state, alert: action.alert || "" };
-    case "SUBMIT_START":
-      return { ...state, isSubmit: true };
-    case "SUBMIT_END":
-      return { ...state, isSubmit: false };
+      return { ...state, agree: action.payload };
+    case "SET_ERROR":
+      return { ...state, error: action.payload };
     default:
       return state;
   }
