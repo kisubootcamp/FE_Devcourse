@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import C from './C';
 
 export default React.memo(function B({
   count2,
-  increment,
+  setCount,
 }: {
-  count2: number;
-  increment: () => void;
+  count2: number[];
+  setCount: Dispatch<SetStateAction<number>>;
 }) {
-  console.log('B rendering', count2);
+  console.log('B Rendering', count2);
 
-  const [count, setCount] = useState(0);
-
+  const [count, setCountB] = useState(0);
   return (
     <>
-      <h1>B : {count}</h1>
-      <button onClick={() => setCount((count) => count + 1)}>B 증가</button>
+      <h1>B: {count} </h1>
+      <button onClick={() => setCountB((count) => count + 1)}>증가</button>
       <C />
     </>
   );

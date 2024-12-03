@@ -1,6 +1,10 @@
 import React from 'react';
 
 export default React.memo(function C() {
-  console.log('C rendering');
-  return <div>C</div>;
+  console.log('C Rendering');
+  return (
+    <>
+      <h1>C</h1>
+    </>
+  );
 });
