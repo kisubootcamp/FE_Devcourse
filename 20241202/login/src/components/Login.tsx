@@ -5,52 +5,39 @@ import Checkbox from "./html/Checkbox";
 import Input from "./html/Input";
 
 const initialState: LoginReducerState = {
-  mail: "",
+  email: "",
   password: "",
   agree: false,
-  alert: "",
-  isSubmit: false,
+  error: "",
 };
 
 export default function Login() {
   const [state, dispatch] = useReducer(loginReducer, initialState);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    dispatch({ type: "SET_FIELD", field: name, value });
-  };
+  const validationForm = () => {
+    if (!state.email) {
+      dispatch({ type: "SET_ERROR", payload: "이메일을 입력해주세요." });
+      return false;
+    }
 
-  const handleAgree = () => {
-    dispatch({ type: "SET_AGREE" });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!state.mail || !state.password) {
-      dispatch({ type: "SET_ALERT", alert: "입력 값을 모두 입력하세요." });
-      return;
+    if (!state.password) {
+      dispatch({ type: "SET_ERROR", payload: "비밀번호를 입력해주세요." });
+      return false;
     }
 
     if (!state.agree) {
-      dispatch({ type: "SET_ALERT", alert: "약관에 동의해주세요." });
-      return;
+      dispatch({ type: "SET_ERROR", payload: "약관에 동의해주세요." });
+      return false;
     }
 
-    if (state.isSubmit) return;
+    dispatch({ type: "SET_ERROR", payload: "" });
+    return true;
+  };
 
-    dispatch({ type: "SET_ALERT", alert: "" });
-    dispatch({ type: "SUBMIT_START" });
-
-    // API 호출
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-      dispatch({ type: "SET_ALERT", alert: "로그인이 완료되었습니다." });
-    } catch (error) {
-      if (error)
-        dispatch({ type: "SET_ALERT", alert: "로그인에 실패했습니다." });
-    } finally {
-      dispatch({ type: "SUBMIT_END" });
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (validationForm()) {
+      alert("로그인 성공!");
     }
   };
 
@@ -62,12 +49,14 @@ export default function Login() {
           <p className="text-sm mb-5">Please enter your details to continue.</p>
           <form className="grid gap-4" onSubmit={handleSubmit}>
             <Input
-              type="email"
+              type="text"
               className="input-style1"
               placeholder="someone@example.com"
               name="mail"
-              value={state.mail}
-              onChange={handleChange}
+              value={state.email}
+              onChange={(e) => {
+                dispatch({ type: "SET_EMAIL", payload: e.target.value });
+              }}
             />
             <Input
               type="password"
@@ -75,21 +64,27 @@ export default function Login() {
               placeholder="Enter Password"
               name="password"
               value={state.password}
-              onChange={handleChange}
+              onChange={(e) => {
+                dispatch({ type: "SET_PASSWORD", payload: e.target.value });
+              }}
             />
-            <Checkbox checked={state.agree} onChange={handleAgree}>
+            <Checkbox
+              checked={state.agree}
+              onChange={(e) => {
+                dispatch({ type: "SET_AGREE", payload: e.target.checked });
+              }}
+            >
               <span className="text-sm color-[#4f4f4f]">
                 I agree with <em className="not-italic font-bold">terms</em> and{" "}
                 <em className="not-italic font-bold">policies</em>.
               </span>
             </Checkbox>
             <div>
-              <p className="text-rose-500 text-sm h-5">{state.alert}</p>
+              <p className="text-rose-500 text-sm h-5">{state.error}</p>
               <div className="mt-3 grid gap-4">
                 <Button
                   type="submit"
                   className="w-full bg-[#4F4F4F] text-[#F5F5F5] rounded-lg"
-                  disabled={state.isSubmit}
                 >
                   Log In
                 </Button>

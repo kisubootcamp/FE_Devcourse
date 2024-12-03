@@ -1,15 +1,24 @@
 interface LoginReducerState {
-  mail: string;
+  email: string;
   password: string;
   agree: boolean;
-  alert: string;
-  isSubmit: boolean;
+  error: string;
 }
 
-interface LoginReducerAction {
-  type: string;
-  field?: string;
-  value?: string;
-  alert?: string;
-  agree?: boolean;
-}
+type LoginReducerAction =
+  | {
+      type: "SET_EMAIL";
+      payload: string;
+    }
+  | {
+      type: "SET_PASSWORD";
+      payload: string;
+    }
+  | {
+      type: "SET_AGREE";
+      payload: boolean;
+    }
+  | {
+      type: "SET_ERROR";
+      payload: string;
+    };
