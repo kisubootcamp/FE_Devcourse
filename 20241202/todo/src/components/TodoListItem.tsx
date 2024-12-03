@@ -1,11 +1,13 @@
 import { useState } from "react";
 
 export default function TodoListItem({
-  item,
-  setItems,
+  todo,
+  removeTodo,
+  toggleTodo,
 }: {
-  item: string;
-  setItems: React.Dispatch<React.SetStateAction<string[]>>;
+  todo: Todo;
+  removeTodo: (id: number) => void;
+  toggleTodo: (id: number) => void;
 }) {
   const [checked, setChecked] = useState(false);
 
@@ -14,15 +16,17 @@ export default function TodoListItem({
       <div className="flex items-center">
         <input
           type="checkbox"
-          checked={checked}
-          onChange={() => setChecked((checked) => !checked)}
+          checked={todo.completed}
+          onChange={() => toggleTodo(todo.id)}
           className="w-4 h-4 mr-3 text-blue-500 focus:ring-blue-400"
         />
-        <span className={checked ? "line-through" : ""}>{item}</span>
+        <span className={todo.completed ? "line-through" : ""}>
+          {todo.text}
+        </span>
       </div>
       <button
         className="ml-4 text-red-500 hover:text-red-700"
-        onClick={() => setItems((items) => items.filter((v) => v !== item))}
+        onClick={() => removeTodo(todo.id)}
       >
         Delete
       </button>

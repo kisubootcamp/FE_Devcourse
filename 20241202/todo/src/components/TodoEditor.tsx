@@ -1,15 +1,23 @@
 import { useState } from "react";
 
 export default function TodoEditor({
-  setItems,
+  addTodo,
 }: {
-  setItems: React.Dispatch<React.SetStateAction<string[]>>;
+  addTodo: (text: string) => void;
 }) {
   const [input, setInput] = useState("");
 
-  const deleteHandler = () => {
-    setItems((items) => [...items, input]);
+  const addHandler = () => {
+    if (!input) return;
+    addTodo(input);
     setInput("");
+  };
+
+  // IME -> 조합문자
+  const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log(e.nativeEvent.isComposing);
+    if (e.nativeEvent.isComposing) return;
+    addHandler();
   };
 
   return (
@@ -20,10 +28,11 @@ export default function TodoEditor({
         className="flex-grow p-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && keyDownHandler(e)}
       />
       <button
         className="px-4 py-2 text-white transition-colors bg-blue-500 rounded-r-md hover:bg-blue-600"
-        onClick={deleteHandler}
+        onClick={addHandler}
       >
         Add Todo
       </button>

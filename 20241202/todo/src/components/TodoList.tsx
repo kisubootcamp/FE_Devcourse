@@ -1,17 +1,25 @@
 import TodoListItem from "./TodoListItem";
 
 export default function TodoList({
-  items,
-  setItems,
+  todos,
+  toggleTodo,
+  removeTodo,
 }: {
-  items: string[];
-  setItems: React.Dispatch<React.SetStateAction<string[]>>;
+  todos: Todo[];
+  toggleTodo: (id: number) => void;
+  removeTodo: (id: number) => void;
 }) {
   return (
     <ul className="divide-y divide-gray-200">
-      {items.map((item, index) => (
-        <TodoListItem key={index} item={item} setItems={setItems} />
-      ))}
+      {todos.length > 0 &&
+        todos.map((todo) => (
+          <TodoListItem
+            key={todo.id}
+            todo={todo}
+            removeTodo={removeTodo}
+            toggleTodo={toggleTodo}
+          />
+        ))}
     </ul>
   );
 }
