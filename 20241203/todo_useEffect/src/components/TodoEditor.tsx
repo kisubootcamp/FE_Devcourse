@@ -15,7 +15,6 @@ export default function TodoEditor({
 
   // IME -> 조합문자
   const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log(e.nativeEvent.isComposing);
     if (e.nativeEvent.isComposing) return;
     addHandler();
   };

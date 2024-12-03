@@ -1,6 +1,6 @@
-import { useId } from "react";
+import React, { useId } from "react";
 
-export default function TodoListItem({
+export default React.memo(function TodoListItem({
   todo,
   removeTodo,
   toggleTodo,
@@ -9,6 +9,7 @@ export default function TodoListItem({
   removeTodo: (id: number) => void;
   toggleTodo: (id: number) => void;
 }) {
+  console.log("todolistIem rendering");
   const uuid = useId();
 
   return (
@@ -33,4 +34,4 @@ export default function TodoListItem({
       </button>
     </li>
   );
-}
+});
