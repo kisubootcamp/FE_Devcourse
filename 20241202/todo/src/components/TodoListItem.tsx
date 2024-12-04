@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { Todo } from "./Todo";
 
 type TodoListItemProps = {
@@ -7,22 +8,25 @@ type TodoListItemProps = {
 }
 
 export default function TodoListItem({ todo, onClick, onDelete }: TodoListItemProps) {
+  const uuid = useId(); // 컴포넌트마다 고유한 아이디가 필요할 때
+  
   return (
-    <li className='flex items-center justify-between p-3 border-t hover:bg-gray-100 transition-colors'>
+    <li className='flex items-center justify-between p-3 transition-colors border-t hover:bg-gray-100'>
       <div className='flex items-center'>
         <input
+          id={uuid}
           type='checkbox'
           checked={todo.checked}
           onChange={() => onClick(todo.id)}
-          className='mr-3 h-4 w-4 text-blue-500 focus:ring-blue-400'
+          className='w-4 h-4 mr-3 text-blue-500 focus:ring-blue-400'
         />
-        <span style={{ textDecoration: todo.checked ? 'line-through' : 'none' }}>
+        <label htmlFor={uuid} style={{ textDecoration: todo.checked ? 'line-through' : 'none' }}>
           {todo.text}
-        </span>
+        </label>
       </div>
       <button 
         onClick={() => onDelete(todo.id)}
-        className='text-red-500 hover:text-red-700 ml-4'
+        className='ml-4 text-red-500 hover:text-red-700'
       >
         Delete
       </button>

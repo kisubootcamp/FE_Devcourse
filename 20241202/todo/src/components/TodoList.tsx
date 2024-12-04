@@ -7,7 +7,6 @@ type TodoListProps = {
   onDelete: (id: number) => void;
 }
 
-
 export default function TodoList({todos, onClick, onDelete} : TodoListProps) {
   return (
     <ul className='divide-y divide-gray-200'>

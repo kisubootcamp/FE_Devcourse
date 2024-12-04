@@ -24,6 +24,8 @@ export default function Todo() {
       checked: false,
     };
 
+    if(newTodo.text.trim() === '') return;
+
     setTodos([...todos, newTodo]);
     setInputText(""); // 입력창 초기화
   };
@@ -41,10 +43,15 @@ export default function Todo() {
   };
 
   return (
-    <div className="max-w-md mx-auto shadow-lg rounded-lg overflow-hidden">
+    <div className="max-w-md mx-auto overflow-hidden rounded-lg shadow-lg">
       <TodoHeader />
-      <TodoEditor value={inputText} onChange={handleChange} onClick={handleAdd} />
+      <TodoEditor
+        value={inputText}
+        onChange={handleChange}
+        onClick={handleAdd}
+      />
       <TodoList todos={todos} onClick={handleCheck} onDelete={handleDelete} />
     </div>
   );
 }
+
