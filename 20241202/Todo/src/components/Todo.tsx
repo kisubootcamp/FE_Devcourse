@@ -24,6 +24,7 @@ export default function Todo() {
   }
 
   // 클릭시 해당하는 list컴포넌트 지우기(titleArr배열을 제거하는 방식)
+  // 여긴 splice보단 filter를 주로 사용하는거 같음 강사님은 filter로 걸러냄
   function deleteList(idx: number) {
     const delArr = [...titleArr];
     delArr.splice(idx, 1);
