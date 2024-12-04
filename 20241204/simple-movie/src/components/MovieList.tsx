@@ -10,8 +10,9 @@ export default function MovieList({
   movies: MovieItemType[];
 }) {
   const isLoading = useMovieStore((state) => state.isLoading);
+  const isError = useMovieStore((state) => state.isError);
 
-  if (isLoading) {
+  if (isLoading || isError) {
     const dummy = new Array(20).fill(0);
     return (
       <section className="container mx-auto py-8 text-white">

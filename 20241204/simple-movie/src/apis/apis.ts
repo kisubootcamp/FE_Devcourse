@@ -16,7 +16,9 @@ export const getNowPlaying = async () => {
       getOptions
     );
     return data;
-  } catch {}
+  } catch (error) {
+    throw new Error("API 호출을 실패했습니다.");
+  }
 };
 
 export const getUpcoming = async () => {
@@ -26,7 +28,9 @@ export const getUpcoming = async () => {
       getOptions
     );
     return data;
-  } catch {}
+  } catch (error) {
+    throw new Error("API 호출을 실패했습니다.");
+  }
 };
 
 export const getTopRated = async () => {
@@ -36,5 +40,7 @@ export const getTopRated = async () => {
       getOptions
     );
     return data;
-  } catch {}
+  } catch (error) {
+    throw new Error("API 호출을 실패했습니다.");
+  }
 };

@@ -10,4 +10,6 @@ export const useMovieStore = create<MoiveStoreType>((set) => ({
 
   isLoading: false,
   setIsLoading: (isLoading) => set({ isLoading }),
+  isError: false,
+  setIsError: (isError) => set({ isError }),
 }));

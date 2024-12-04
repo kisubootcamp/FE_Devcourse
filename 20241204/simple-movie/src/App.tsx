@@ -12,16 +12,24 @@ export default function App() {
   const topRated = useMovieStore((state) => state.topRated);
   const setTopRated = useMovieStore((state) => state.setTopRated);
   const setIsLoading = useMovieStore((state) => state.setIsLoading);
+  const setIsError = useMovieStore((state) => state.setIsError);
 
   const getMovies = async () => {
     setIsLoading(true);
-    const np = await getNowPlaying();
-    setNowPlaying(np.results);
-    const uc = await getUpcoming();
-    setUpcoming(uc.results);
-    const tr = await getTopRated();
-    setTopRated(tr.results);
-    setIsLoading(false);
+    setIsError(false);
+    try {
+      const np = await getNowPlaying();
+      setNowPlaying(np.results);
+      const uc = await getUpcoming();
+      setUpcoming(uc.results);
+      const tr = await getTopRated();
+      setTopRated(tr.results);
+    } catch (error) {
+      setIsError(true);
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {

@@ -8,4 +8,6 @@ type MoiveStoreType = {
 
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
+  isError: boolean;
+  setIsError: (isError: boolean) => void;
 };
