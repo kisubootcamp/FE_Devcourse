@@ -1,5 +1,14 @@
-import Count from "./components/Count";
+import AuthCheck from './components/AuthCheck';
+import Count from './components/Count';
+import CountOutsideDisplay from './components/CountOutsideDisplay';
 
 export default function App() {
-  return <Count />;
+  return (
+    <>
+      <AuthCheck>
+        <Count />
+        <CountOutsideDisplay />
+      </AuthCheck>
+    </>
+  );
 }

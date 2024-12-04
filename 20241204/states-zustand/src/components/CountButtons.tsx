@@ -1,12 +1,16 @@
-import React from "react";
+import React from 'react';
+import { useCounterStore } from '../store/CounterStore';
 
 export default React.memo(function CountButtons() {
-  console.log("CountButtons rendering");
+  console.log('CountButtons rendering');
+  const increment = useCounterStore((state) => state.increment);
+  const decrement = useCounterStore((state) => state.decrement);
+  const reset = useCounterStore((state) => state.reset);
   return (
     <>
-      <button>감소</button>
-      <button>리셋</button>
-      <button>증가</button>
+      <button onClick={decrement}>감소</button>
+      <button onClick={reset}>리셋</button>
+      <button onClick={increment}>증가</button>
     </>
   );
 });
