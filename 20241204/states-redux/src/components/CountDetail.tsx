@@ -1,5 +1,5 @@
-import CountButtons from "./CountButtons";
-import CountDisplay from "./CountDisplay";
+import CountButtons from './CountButtons';
+import CountDisplay from './CountDisplay';
 
 export default function CountDetail() {
   return (
