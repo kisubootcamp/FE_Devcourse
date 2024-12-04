@@ -1,7 +1,11 @@
+import { useContext } from "react";
+import { CounterContext } from "../context/CounterContext";
+
 export default function CountOutsideDisplay() {
+  const { count } = useContext(CounterContext)!;
   return (
-    <div>
-      <h1>outside count: 0</h1>
-    </div>
+    <>
+      <h1>OutSide Count: {count}</h1>
+    </>
   );
 }
