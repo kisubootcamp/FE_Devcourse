@@ -1,15 +1,30 @@
 import { useReducer } from "react";
-import { countReducer } from "./reducer/countReducer";
 
-export default function CountWithReducer() {
-  const [count, dispatch] = useReducer(countReducer, 0);
+interface CountReducerProps {
+  type: string;
+}
 
+function countReducer(count: number, action: CountReducerProps): number {
+  switch (action.type) {
+    case "DECREMENT":
+      return count - 1;
+    case "INCREMENT":
+      return count + 1;
+    case "RESET":
+      return 0;
+    default:
+      return count;
+  }
+}
+
+export default function CountReducer() {
+  const [count, countDispatch] = useReducer(countReducer, 0);
   return (
     <>
-      <h1>Count: {count}</h1>
-      <button onClick={() => dispatch({ type: "decrement" })}>감소</button>
-      <button onClick={() => dispatch({ type: "reset" })}>리셋</button>
-      <button onClick={() => dispatch({ type: "increment" })}>증가</button>
+      <div>Count: {count}</div>
+      <button onClick={() => countDispatch({ type: "DECREMENT" })}>감소</button>
+      <button onClick={() => countDispatch({ type: "RESET" })}>리셋</button>
+      <button onClick={() => countDispatch({ type: "INCREMENT" })}>증가</button>
     </>
   );
 }
