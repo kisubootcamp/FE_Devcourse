@@ -1,12 +1,6 @@
 import { star } from '../assets/assets';
 
-export default function MovieAreaItem({
-  key,
-  movie,
-}: {
-  key: number;
-  movie: Movie;
-}) {
+export default function MovieAreaItem({ movie }: { movie: Movie }) {
   return (
     <div>
       <img
