@@ -1,4 +1,3 @@
-// 2. context provider를 만든다.
 import { useMemo, useState } from "react";
 import { CounterActionContext, CounterContext } from "../CounterContext";
 
@@ -17,6 +16,7 @@ export default function CounterProvider({
   const reset = () => {
     setCount(0);
   };
+
   const memo = useMemo(
     () => ({
       increment,

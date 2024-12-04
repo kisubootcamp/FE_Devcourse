@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { CounterActionContext } from "../context/CounterContext";
 
 export default React.memo(function CountButtons() {
-  console.log("CountButtons rendering");
   const { increment, decrement, reset } = useContext(CounterActionContext)!;
   return (
     <>
