@@ -8,7 +8,7 @@ export default function TodoEditor({ value, onChange, onClick } : TodoEditorProp
   return (
     <div className="flex p-4">
       <input
-      value={value}
+        value={value}
         onChange={onChange}
         type="text"
         placeholder="Enter a new todo"
@@ -16,7 +16,7 @@ export default function TodoEditor({ value, onChange, onClick } : TodoEditorProp
       />
       <button
         onClick={onClick}
-        className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition-colors"
+        className="px-4 py-2 text-white transition-colors bg-blue-500 rounded-r-md hover:bg-blue-600"
       >
         Add Todo
       </button>
