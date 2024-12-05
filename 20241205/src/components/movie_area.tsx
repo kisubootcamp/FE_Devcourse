@@ -52,7 +52,7 @@ export default function MovieArea() {
                     className="object-contain"
                   />
                   <span className="text-yellow-500">
-                    {Math.round(movie.vote_average * 10) / 10}
+                    {movie.vote_average.toFixed(1)}
                   </span>
                 </div>
               </div>
