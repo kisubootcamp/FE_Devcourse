@@ -29,8 +29,4 @@ coverage
 
 *.tsbuildinfo
 
-*/
-!2025.01.02/
-FE_Project_2/
-hiyeji/
-learn-react/
+
