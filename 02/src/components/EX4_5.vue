@@ -16,18 +16,19 @@ export default {
 <template>
   <ul>
     <li
-      v-for="(members, key) in teamMembers.reduce((acc, member) => {
-        if (!acc[member.role]) {
-          acc[member.role] = [];
-        }
-        acc[member.role].push(member);
-        return acc;
-      }, {})"
-      :key="key"
+      v-for="(role, index) in [
+        ...new Set(teamMembers.map((member) => member.role)),
+      ]"
+      :key="index"
     >
-      <h3>{{ key }}</h3>
+      <h3>{{ role }}</h3>
       <ul>
-        <li v-for="(member, index) in members" :key="index">
+        <li
+          v-for="(member, index) in teamMembers.filter(
+            (member) => member.role === role
+          )"
+          :key="index"
+        >
           {{ member.name }}
         </li>
       </ul>
