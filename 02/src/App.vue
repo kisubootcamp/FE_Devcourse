@@ -17,6 +17,9 @@ import Ex4_5 from "./Ex4_5.vue";
 import Lecture1 from "./Lecture1.vue";
 import Lecture2 from "./Lecture2.vue";
 import Lecture3 from "./Lecture3.vue";
+import Lecture4 from "./Lecture4.vue";
+import Lecture5 from "./Lecture5.vue";
+import Lecture6 from "./Lecture6.vue";
 
 export default {
   name: "App",
@@ -25,6 +28,9 @@ export default {
     Lecture1,
     Lecture2,
     Lecture3,
+    Lecture4,
+    Lecture5,
+    Lecture6,
     Ex3_1,
     Ex3_2,
     Ex3_3,
@@ -47,6 +53,9 @@ export default {
   <Lecture1 />
   <Lecture2 />
   <Lecture3 />
+  <Lecture4 />
+  <Lecture5 />
+  <Lecture6 />
   <hr />
   <Ex3_1 />
   <Ex3_2 />
@@ -58,10 +67,11 @@ export default {
   <Ex3_8 />
   <Ex3_9 />
   <Ex3_10 />
+  <hr />
   <Ex4_1 />
   <Ex4_2 />
   <Ex4_3 />
   <Ex4_4 />
   <Ex4_5 />
 </template>
-<style></style>
+<style scoped></style>
