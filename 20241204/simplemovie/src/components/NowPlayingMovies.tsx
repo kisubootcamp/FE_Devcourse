@@ -1,24 +1,17 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { star } from "../assets/assets";
+import { axiosInstance } from "../api/axios";
 
 const NowPlayingMovies = () => {
-  const [movies, setMovies] = useState<any[]>([]);
+  const [movies, setMovies] = useState<MovieItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await axios.get(
-          "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
-          {
-            headers: {
-              accept: "application/json",
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDkzYTllZTk2YzUwODlkMmYxNTNlNDdiOWU4YzBhYSIsIm5iZiI6MTczMzI5MTMwNS4xNjgsInN1YiI6IjY3NGZlZDI5NjU2NzAyYTc5MmZmYWRlZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gD5df8vcuE6tgc2uX7CbOeZ5qYOo8OCxnksHYI_SvA4",
-            },
-          }
+        const response = await axiosInstance.get(
+          "/now_playing?language=en-US&page=1"
         );
         setMovies(response.data.results);
         setLoading(false);
@@ -40,7 +33,7 @@ const NowPlayingMovies = () => {
       <span className="text-yellow-600">NOW PLAYING</span>
       <h2 className="text-[36px] font-bold mb-8">Now Playing</h2>
       <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-6 sm:px-0">
-        {movies.map((movie: any) => (
+        {movies.map((movie: MovieItem) => (
           <div key={movie.id}>
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
