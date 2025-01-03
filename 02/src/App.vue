@@ -1,14 +1,14 @@
 <script>
-import EX1 from "./components/EX1.vue";
-import EX2 from "./components/EX2.vue";
-import EX3 from "./components/EX3.vue";
-import EX4 from "./components/EX4.vue";
-import EX5 from "./components/EX5.vue";
-import EX6 from "./components/EX6.vue";
-import EX7 from "./components/EX7.vue";
-import EX8 from "./components/EX8.vue";
-import EX9 from "./components/EX9.vue";
-import EX10 from "./components/EX10.vue";
+import EX3_1 from "./components/EX3_1.vue";
+import EX3_2 from "./components/EX3_2.vue";
+import EX3_3 from "./components/EX3_3.vue";
+import EX3_4 from "./components/EX3_4.vue";
+import EX3_5 from "./components/EX3_5.vue";
+import EX3_6 from "./components/EX3_6.vue";
+import EX3_7 from "./components/EX3_7.vue";
+import EX3_8 from "./components/EX3_8.vue";
+import EX3_9 from "./components/EX3_9.vue";
+import EX3_10 from "./components/EX3_10.vue";
 import EX4_1 from "./components/EX4_1.vue";
 import EX4_2 from "./components/EX4_2.vue";
 import EX4_3 from "./components/EX4_3.vue";
@@ -18,16 +18,16 @@ import EX4_5 from "./components/EX4_5.vue";
 export default {
   name: "App",
   components: {
-    EX1,
-    EX2,
-    EX3,
-    EX4,
-    EX5,
-    EX6,
-    EX7,
-    EX8,
-    EX9,
-    EX10,
+    EX3_1,
+    EX3_2,
+    EX3_3,
+    EX3_4,
+    EX3_5,
+    EX3_6,
+    EX3_7,
+    EX3_8,
+    EX3_9,
+    EX3_10,
     EX4_1,
     EX4_2,
     EX4_3,
@@ -40,22 +40,20 @@ export default {
 };
 </script>
 <template>
-  <EX1 />
-  <EX2 />
-  <EX3 />
-  <EX4 />
-  <EX5 />
-  <EX6 />
-  <EX7 />
-  <EX8 />
-  <EX9 />
-  <EX10 />
+  <EX3_1 />
+  <EX3_2 />
+  <EX3_3 />
+  <EX3_4 />
+  <EX3_5 />
+  <EX3_6 />
+  <EX3_7 />
+  <EX3_8 />
+  <EX3_9 />
+  <EX3_10 />
   <EX4_1 />
   <EX4_2 />
   <EX4_3 />
   <EX4_4 />
   <EX4_5 />
 </template>
-<style scoped>
-@import "~/css/index.css";
-</style>
+<style scoped></style>

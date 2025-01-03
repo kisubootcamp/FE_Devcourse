@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "EX2",
+  name: "EX3_2",
   data() {
     return {
       person: { name: "홍길동", age: 25, job: "개발자" },

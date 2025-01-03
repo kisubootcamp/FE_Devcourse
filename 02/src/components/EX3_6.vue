@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "EX6",
+  name: "EX3_6",
   data() {
     return {
       cars: [

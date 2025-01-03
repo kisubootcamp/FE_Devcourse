@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "EX3",
+  name: "EX3_3",
   data() {
     return {
       items: ["Apple", "Banana", "Cherry"],

@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "EX5",
+  name: "EX3_5",
   data() {
     return {
       buttons: ["Save", "Cancel", "Delete"],

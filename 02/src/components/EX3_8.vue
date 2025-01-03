@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "EX8",
+  name: "EX3_8",
   data() {
     return {
       categories: [
