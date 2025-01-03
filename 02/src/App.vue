@@ -47,7 +47,7 @@ export default {
   <EX5 />
   <EX6 />
   <EX7 />
-  <<EX8 />
+  <EX8 />
   <EX9 />
   <EX10 />
   <EX4_1 />
