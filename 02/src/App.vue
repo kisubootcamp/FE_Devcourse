@@ -57,5 +57,5 @@ export default {
   <EX4_5 />
 </template>
 <style scoped>
-@import "./css/index.css";
+@import "~/css/index.css";
 </style>
