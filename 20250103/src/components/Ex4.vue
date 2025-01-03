@@ -84,27 +84,25 @@ export default {
   </template>
 
   <!-- 5 -->
-  <div>
-    <h3>개발자</h3>
-    <ul>
-      <template v-for="(member, idx) in teamMembers" :key="idx">
-        <li v-if="member.role === '개발자'">{{ member.name }}</li>
-      </template>
-    </ul>
 
-    <h3>디자이너</h3>
-    <ul>
-      <template v-for="(member, idx) in teamMembers" :key="idx">
-        <li v-if="member.role === '디자이너'">{{ member.name }}</li>
-      </template>
-    </ul>
-
-    <h3>기획자</h3>
-    <ul>
-      <template v-for="(member, idx) in teamMembers" :key="idx">
-        <li v-if="member.role === '기획자'">{{ member.name }}</li>
-      </template>
-    </ul>
-  </div>
+  <ul>
+    <li
+      v-for="(members, key) in teamMembers.reduce((acc, member) => {
+        if (!acc[member.role]) {
+          acc[member.role] = [];
+        }
+        acc[member.role].push(member);
+        return acc;
+      }, {})"
+      :key="idx"
+    >
+      <h2>{{ key }}</h2>
+      <ul>
+        <li v-for="(member, index) in members" :key="index">
+          {{ member.name }}
+        </li>
+      </ul>
+    </li>
+  </ul>
 </template>
 <style scoped></style>
