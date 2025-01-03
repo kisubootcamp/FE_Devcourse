@@ -5,10 +5,15 @@ import Ex3_2 from './components/Lv3/Ex3_2.vue';
 import Ex3_3 from './components/Lv3/Ex3_3.vue';
 import Ex3_4 from './components/Lv3/Ex3_4.vue';
 import Ex3_5 from './components/Lv3/Ex3_5.vue';
-import Ex3_6 from './components/Lv3/ex3_6.vue';
+import Ex3_6 from './components/Lv3/Ex3_6.vue';
 import Ex3_7 from './components/Lv3/Ex3_7.vue';
 import Ex3_8 from './components/Lv3/Ex3_8.vue';
 import Ex3_9 from './components/Lv3/Ex3_9.vue';
+import Ex4_1 from './components/Lv4/Ex4_1.vue';
+import Ex4_2 from './components/Lv4/Ex4_2.vue';
+import Ex4_3 from './components/Lv4/Ex4_3.vue';
+import Ex4_4 from './components/Lv4/Ex4_4.vue';
+import Ex4_5 from './components/Lv4/Ex4_5.vue';
 
 export default {
   name: 'App',
@@ -22,11 +27,18 @@ export default {
     Ex3_7,
     Ex3_8,
     Ex3_9,
-    Ex3_10
+    Ex3_10,
+
+    Ex4_1,
+    Ex4_2,
+    Ex4_3,
+    Ex4_4,
+    Ex4_5
   }
 };
 </script>
 <template>
+  <h1>Level 3</h1>
   <Ex3_1 />
   <Ex3_2 />
   <Ex3_3 />
@@ -37,6 +49,13 @@ export default {
   <Ex3_8 />
   <Ex3_9 />
   <Ex3_10 />
+
+  <h1>Level 4</h1>
+  <Ex4_1 />
+  <Ex4_2 />
+  <Ex4_3 />
+  <Ex4_4 />
+  <Ex4_5 />
 </template>
 <style scoped>
   
