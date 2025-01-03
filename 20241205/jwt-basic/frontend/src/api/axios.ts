@@ -12,3 +12,28 @@ axiosInstance.interceptors.request.use((config) => {
   }
   return config;
 });
+
+let retry = false;
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response?.status === 403 && !retry) {
+      retry = true;
+      try {
+        const { data } = await axiosInstance.post("/token");
+        console.log(data);
+        useAuthStore.setState({
+          accessToken: data.accessToken,
+          isLoggedIn: true,
+        });
+        retry = false;
+        originalRequest.headers["Authorization"] = `Bearer ${data.accessToken}`;
+        return axiosInstance(originalRequest);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+);
