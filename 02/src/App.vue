@@ -20,6 +20,8 @@ import Lecture3 from "./Lecture3.vue";
 import Lecture4 from "./Lecture4.vue";
 import Lecture5 from "./Lecture5.vue";
 import Lecture6 from "./Lecture6.vue";
+import Lecture7 from "./Lecture7.vue";
+import Lecture8 from "./Lecture8.vue";
 
 export default {
   name: "App",
@@ -31,6 +33,8 @@ export default {
     Lecture4,
     Lecture5,
     Lecture6,
+    Lecture7,
+    Lecture8,
     Ex3_1,
     Ex3_2,
     Ex3_3,
@@ -56,6 +60,8 @@ export default {
   <Lecture4 />
   <Lecture5 />
   <Lecture6 />
+  <Lecture7 />
+  <Lecture8 />
   <hr />
   <Ex3_1 />
   <Ex3_2 />
