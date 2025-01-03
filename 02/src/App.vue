@@ -9,6 +9,11 @@ import Ex3_6 from "./Ex3_6.vue";
 import Ex3_7 from "./Ex3_7.vue";
 import Ex3_8 from "./Ex3_8.vue";
 import Ex3_9 from "./Ex3_9.vue";
+import Ex4_1 from "./Ex4_1.vue";
+import Ex4_2 from "./Ex4_2.vue";
+import Ex4_3 from "./Ex4_3.vue";
+import Ex4_4 from "./Ex4_4.vue";
+import Ex4_5 from "./Ex4_5.vue";
 import Lecture1 from "./Lecture1.vue";
 import Lecture2 from "./Lecture2.vue";
 import Lecture3 from "./Lecture3.vue";
@@ -30,6 +35,11 @@ export default {
     Ex3_8,
     Ex3_9,
     Ex3_10,
+    Ex4_1,
+    Ex4_2,
+    Ex4_3,
+    Ex4_4,
+    Ex4_5,
   },
 };
 </script>
@@ -48,5 +58,10 @@ export default {
   <Ex3_8 />
   <Ex3_9 />
   <Ex3_10 />
+  <Ex4_1 />
+  <Ex4_2 />
+  <Ex4_3 />
+  <Ex4_4 />
+  <Ex4_5 />
 </template>
 <style></style>
