@@ -11,6 +11,38 @@ export default {
   methods: {
     handleLogin() {
       console.log(this.email, this.password, this.remember);
+      if (!this.isValidEmail()) {
+        alert("Please enter a valid email address.");
+      } else if (!this.isValidPassword()) {
+        alert(
+          "Password must be at least 4 characters long and contain at least one letter and one number."
+        );
+      } else {
+        alert("Form submitted successfully!");
+      }
+    },
+    isValidEmail() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(this.email)) {
+        return false;
+      }
+      return true;
+    },
+    isValidPassword() {
+      const passwordRegex =
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()_+=[\]{};':"\\|,.<>?/`~\-])(?=.{4,})/;
+      if (!passwordRegex.test(this.password)) {
+        return false;
+      }
+      return true;
+    },
+    isRemember() {
+      if (!this.remember) alert("Remember me is checked!");
+    },
+  },
+  computed: {
+    isFormValid() {
+      return this.email.trim() !== "" && this.password.trim() !== "";
     },
   },
 };
@@ -67,6 +99,7 @@ export default {
                 value=""
                 class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
                 v-model="remember"
+                @click="isRemember"
               />
             </div>
             <label for="remember" class="text-sm font-medium text-gray-900 ms-2"
@@ -80,6 +113,7 @@ export default {
         <button
           type="submit"
           class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:cursor-not-allowed"
+          :disabled="!isFormValid"
         >
           Login to your account
         </button>
