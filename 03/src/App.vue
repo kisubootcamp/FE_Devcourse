@@ -10,6 +10,7 @@ import Form8 from "./Form8.vue";
 import Lecture01 from "./Lecture01.vue";
 import Lecture02 from "./Lecture02.vue";
 import Practice01 from "./Practice01.vue";
+import Practice02 from "./Practice02.vue";
 
 export default {
   name: "App",
@@ -17,6 +18,7 @@ export default {
     Lecture01,
     Lecture02,
     Practice01,
+    Practice02,
     Form1,
     Form2,
     Form3,
@@ -36,6 +38,7 @@ export default {
     <Lecture01 />
     <Lecture02 />
     <Practice01 />
+    <Practice02 />
     <Form1 />
     <Form2 />
     <Form3 />
