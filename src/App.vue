@@ -8,11 +8,36 @@ export default {
       rememberCheck: false,
     };
   },
+  computed: {
+    handleDisabled() {
+      if (this.email && this.password) {
+        return false;
+      } else return true;
+    },
+  },
   methods: {
     handleSubmit() {
-      console.log(this.email);
-      console.log(this.password);
-      console.log(this.rememberCheck);
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{4,}$/;
+
+      if (!emailRegex.test(this.email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      if (!passwordRegex.test(this.password)) {
+        alert(
+          "Password must be at least 4 characters long and contain at least one letter and one number."
+        );
+        return;
+      }
+
+      if (this.rememberCheck) {
+        alert("Remember me is checked!");
+      }
+
+      alert("Form submitted successfully!");
     },
   },
 };
@@ -80,6 +105,7 @@ export default {
         <button
           type="submit"
           class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:cursor-not-allowed"
+          :disabled="handleDisabled"
         >
           Login to your account
         </button>
