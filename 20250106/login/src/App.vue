@@ -15,12 +15,12 @@ export default {
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(this.email)) {
-        alert("Please enter a valid email address.");
+        return alert("Please enter a valid email address.");
       }
 
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{4,}$/;
       if (!passwordRegex.test(this.password)) {
-        alert(
+        return alert(
           "Password must be at least 4 characters long and contain at least one letter and one number."
         );
       }
