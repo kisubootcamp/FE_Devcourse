@@ -15,7 +15,23 @@ export default {
   },
   methods: {
     handleSubmit() {
-      console.log("submit", this.email, this.pw, this.remember);
+      // email 체크
+      const emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+      if (!emailReg.test(this.email))
+        return alert("Please enter a valid email address.");
+
+      // pw 체크
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{4,}$/;
+      if (!passwordRegex.test(this.pw))
+        return alert(
+          "Password must be at least 4 characters long and contain at least one letter and one number."
+        );
+
+      // remember 체크하면 alert
+      if (this.remember) alert("Remember me is checked!");
+
+      // 마무리
+      alert("Form submitted successfully!");
     },
   },
 };
@@ -37,6 +53,7 @@ export default {
             >Your email</label
           >
           <input
+            v-model="email"
             type="email"
             name="email"
             id="email"
@@ -44,7 +61,6 @@ export default {
             placeholder="name@company.com"
             autocomplete="off"
             required
-            v-model="email"
           />
         </div>
         <div>
