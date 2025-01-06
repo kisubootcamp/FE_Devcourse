@@ -12,6 +12,32 @@ export default {
       console.log(
         `email: ${this.email}, password: ${this.password}, remember: ${this.remember}`
       );
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(this.email)) {
+        alert("Please enter a valid email address.");
+      }
+
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{4,}$/;
+      if (!passwordRegex.test(this.password)) {
+        alert(
+          "Password must be at least 4 characters long and contain at least one letter and one number."
+        );
+      }
+
+      alert("Form submitted successfully!");
+    },
+    handleRememberClick() {
+      if (this.remember) {
+        alert("Remember me is checked!");
+      }
+    },
+  },
+  computed: {
+    isAbled() {
+      if (this.email.trim().length > 0 && this.password.trim().length > 0)
+        return false;
+      return true;
     },
   },
 };
@@ -68,6 +94,7 @@ export default {
                 type="checkbox"
                 value=""
                 class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                @change="handleRememberClick"
               />
             </div>
             <label for="remember" class="ms-2 text-sm font-medium text-gray-900"
@@ -81,6 +108,7 @@ export default {
         <button
           type="submit"
           class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:cursor-not-allowed"
+          :disabled="isAbled"
         >
           Login to your account
         </button>
