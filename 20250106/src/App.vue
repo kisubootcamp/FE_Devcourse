@@ -48,6 +48,7 @@
                 type="checkbox"
                 v-model="uremember"
                 class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                @change="checkRemember"
               />
             </div>
             <label for="remember" class="ms-2 text-sm font-medium text-gray-900"
@@ -61,6 +62,7 @@
         <button
           type="submit"
           class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:cursor-not-allowed"
+          :disabled
         >
           Login to your account
         </button>
@@ -82,9 +84,41 @@ export default {
       uremember: false,
     };
   },
+  computed: {
+    disabled() {
+      if (this.uemail && this.upassword) return false;
+      return true;
+    },
+  },
   methods: {
     handleSubmit() {
-      console.log(this.uemail, this.upassword, this.uremember);
+      // this.validateEmail();
+      // this.validatePassword();
+
+      if (this.validateEmail() && this.validatePassword())
+        window.alert("Form submitted successfully!");
+    },
+    validateEmail() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailRegex.test(this.uemail)) return true;
+      else {
+        window.alert("Please enter a valid email address.");
+        return false;
+      }
+    },
+    validatePassword() {
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/;
+      if (passwordRegex.test(this.upassword)) return true;
+      else {
+        window.alert(
+          "Password must be at least 4 characters long and contain at least one letter and one number."
+        );
+        return false;
+      }
+    },
+    checkRemember() {
+      if (this.uremember) window.alert("Remember me is checked!");
     },
   },
 };
