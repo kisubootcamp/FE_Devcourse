@@ -39,7 +39,18 @@ export default {
           amount: 450,
         },
       ],
+      isViewAll: false,
     };
+  },
+  computed: {
+    renderedCustomers() {
+      return this.isViewAll ? this.customers : this.customers.slice(0, 5);
+    },
+  },
+  methods: {
+    handleClickViewAll() {
+      this.isViewAll = true;
+    },
   },
 };
 </script>
@@ -55,13 +66,15 @@ export default {
         <a
           href="#"
           class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
+          v-show="!isViewAll"
+          @click="handleClickViewAll"
         >
           View all
         </a>
       </div>
       <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-          <li v-for="customer in customers" class="py-3 sm:py-4">
+          <li v-for="customer in renderedCustomers" class="py-3 sm:py-4">
             <div class="flex items-center">
               <div class="flex-1 min-w-0 ms-4">
                 <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
