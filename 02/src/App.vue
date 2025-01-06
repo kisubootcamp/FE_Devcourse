@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import Ex4 from "./components/Ex4.vue";
 
 export default {
@@ -55,8 +55,13 @@ export default {
   </ul>
   <ul>
     <template v-for="fruit in fruits">
-      <li v-if="fruit === 'Apple'" style="color: red">{{ fruit }}</li>
-      <li v-else>{{ fruit }}</li>
+      <li
+        :style="{
+          color: fruit === 'Apple' ? 'red' : 'green',
+        }"
+      >
+        {{ fruit }}
+      </li>
     </template>
   </ul>
   <ul>
@@ -69,13 +74,59 @@ export default {
   </ul>
   <ul>
     <template v-for="(item, index) in items2">
-      <li v-if="index === 0" style="font-weight: bold">{{ item }}</li>
-      <li v-else>{{ item }}</li>
+      <li :style="{ fontWeight: index === 0 ? 'bold' : 'normal' }">
+        {{ item }}
+      </li>
     </template>
   </ul>
   <ul>
     <li v-for="item in items3">{{ item }} - {{ item.length }}</li>
   </ul>
   <Ex4 />
+
+  <button class="btn btn-primary">123</button>
 </template>
-<style scoped></style>
+<style lang="scss" scoped>
+div {
+  h1 {
+    color: pink;
+  }
+}
+</style> -->
+
+<template>
+  <div>
+    <h1>{{ directiveName }}</h1>
+    <label>ID</label>
+    <input type="text" v-model="userId" />
+    <button v-on:click="chk">확인</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      directiveName: "v-model",
+      userId: "test",
+    };
+  },
+  methods: {
+    chk() {
+      alert(this.userId);
+    },
+  },
+};
+</script>
+
+<style scoped>
+h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+</style>  
