@@ -8,8 +8,41 @@ export default {
       isChecked: false,
     };
   },
+  computed: {
+    isDisabled() {
+      return !this.uemail || !this.upassword;
+    },
+  },
   methods: {
-    submitForm() {
+    // 체크
+    handleCheck() {
+      if (this.isChecked) {
+        alert("Remember me is checked!");
+      }
+    },
+    handleSubmit() {
+      // 이메일 유효성 검사
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(this.uemail)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+      // 비밀번호 유효성 검사
+      const passwordPattern =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/;
+      if (!passwordPattern.test(this.upassword)) {
+        alert(
+          "Password must be at least 4 characters long and contain at least one letter and one number.’"
+        );
+        return;
+      }
+      //통과
+      else {
+        alert("Form submitted successfully!");
+        this.uemail = "";
+        this.upassword = "";
+        this.isChecked = false;
+      }
       console.log(this.uemail, this.upassword, this.isChecked);
     },
   },
@@ -20,7 +53,7 @@ export default {
     <div
       class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
     >
-      <form @submit.prevent="submitForm" class="space-y-6" action="#">
+      <form @submit.prevent="handleSubmit" class="space-y-6" action="#">
         <h5 class="text-xl font-medium text-gray-900">
           Sign in to our platform
         </h5>
@@ -61,6 +94,7 @@ export default {
           <div class="flex items-start">
             <div class="flex items-center h-5">
               <input
+                @change="handleCheck"
                 v-model="isChecked"
                 id="remember"
                 type="checkbox"
@@ -79,6 +113,7 @@ export default {
         <button
           type="submit"
           class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:cursor-not-allowed"
+          :disabled="isDisabled"
         >
           Login to your account
         </button>
