@@ -9,6 +9,12 @@ export default {
     };
   },
   methods: {
+    // 체크
+    handleCheck() {
+      if (this.isChecked) {
+        alert("Remember me is checked!");
+      }
+    },
     handleSubmit() {
       // 이메일 유효성 검사
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -23,11 +29,6 @@ export default {
         alert(
           "Password must be at least 4 characters long and contain at least one letter and one number.’"
         );
-        return;
-      }
-      // 체크박스 체크 여부 확인
-      if (!this.isChecked) {
-        alert("Remember me is checked!");
         return;
       }
       //통과
@@ -88,6 +89,7 @@ export default {
           <div class="flex items-start">
             <div class="flex items-center h-5">
               <input
+                @change="handleCheck"
                 v-model="isChecked"
                 id="remember"
                 type="checkbox"
