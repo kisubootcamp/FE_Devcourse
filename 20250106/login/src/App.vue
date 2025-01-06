@@ -8,9 +8,29 @@ export default {
       chk: false,
     };
   },
+
   computed: {
     isFormValid() {
-      return this.email.trim() !== "" && this.pw.trim() !== "";
+      return this.isEmailValid && this.isPwValid && this.chk;
+    },
+    isEmailValid() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(this.email);
+    },
+    isPwValid() {
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{4,}$/;
+      return passwordRegex.test(this.pw);
+    },
+  },
+  methods: {
+    isChecked() {
+      if (!this.chk) {
+        alert("Remember me is checked!");
+      }
+    },
+    onSubmit() {
+      console.log(this.isFormValid);
+      if (this.isFormValid) return alert("Form submitted successfully!!");
     },
   },
 };
@@ -41,6 +61,9 @@ export default {
             autocomplete="off"
             required
           />
+          <p v-if="!isEmailValid" class="text-red-500">
+            Please enter a valid email address.
+          </p>
         </div>
         <div>
           <label
@@ -57,11 +80,16 @@ export default {
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             required
           />
+          <p v-if="!isPwValid" class="text-red-500">
+            Password must be at least 4 characters long and contain at least one
+            letter and one number.
+          </p>
         </div>
         <div class="flex items-start">
           <div class="flex items-start">
             <div class="flex items-center h-5">
               <input
+                @click="isChecked"
                 v-model="chk"
                 id="remember"
                 type="checkbox"
@@ -78,6 +106,7 @@ export default {
           >
         </div>
         <button
+          @click.prevent="onSubmit()"
           type="submit"
           class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:cursor-not-allowed"
           :disabled="!isFormValid"
