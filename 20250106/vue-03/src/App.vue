@@ -13,6 +13,42 @@
         console.log('Email: ', this.email);
         console.log('Password: ', this.password);
         console.log('Remember me: ', this.remember);
+
+        // 입력된 이메일이 올바른 이메일 형식이 아니라면 alert창 띄우기
+        if (!this.isValidateEmail) {
+          alert('Please enter a valid email address.');
+          return;
+        }
+
+        // 입력된 비밀번호가 올바르지 않으면 alert창 띄우기
+        if (!this.isValidatePassword) {
+          alert(
+            'Password must be at least 4 characters long and contain at least one letter and one number.'
+          );
+          return;
+        }
+
+        // remember me를 체크했다면 alert창 띄우기
+        if (this.remember) {
+          alert('Remember me is checked!');
+        }
+
+        // 모든 조건에 통과하면 alert창 띄우기
+        alert('Form submitted successfully!');
+      },
+    },
+    computed: {
+      isDisabled() {
+        return !this.email || !this.password;
+      },
+      isValidateEmail() {
+        const email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return email_regex.test(this.email);
+      },
+      isValidatePassword() {
+        const password_regex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d).{4,}$/;
+        return password_regex.test(this.password);
       },
     },
   };
@@ -35,7 +71,7 @@
           >
           <input
             v-model="email"
-            type="email"
+            type="text"
             name="email"
             id="email"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -81,7 +117,8 @@
         </div>
         <button
           type="submit"
-          class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:cursor-not-allowed">
+          class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:cursor-not-allowed"
+          :disabled="isDisabled">
           Login to your account
         </button>
         <div class="text-sm font-medium text-gray-500">
