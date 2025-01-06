@@ -4,15 +4,20 @@ export default {
   data() {
     return {
       fruits: ["Apple", "Banana", "Grapes"],
+      color1: "red",
+      color2: "green",
     };
   },
 };
 </script>
 <template>
   <ul>
-    <li v-for="(fruit, index) in fruits" :key="index">
-      <span v-if="fruit === 'Apple'" style="color: red">{{ fruit }}</span>
-      <span v-else style="color: green">{{ fruit }}</span>
+    <li
+      v-for="(fruit, index) in fruits"
+      :key="index"
+      :style="{ color: fruit === 'Apple' ? color1 : color2 }"
+    >
+      {{ fruit }}
     </li>
   </ul>
 </template>
