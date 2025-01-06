@@ -12,6 +12,28 @@ export default {
       return !this.email.length || !this.password.length;
     },
   },
+  methods: {
+    handleSubmit() {
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const passwordPattern =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?`~\-]).{4,}$/;
+      if (!emailPattern.test(this.email)) {
+        alert("'Please enter a valid email address.");
+        return;
+      }
+      if (!passwordPattern.test(this.password)) {
+        alert(
+          "Password must be at least 4 characters long and contain at least one letter and one number."
+        );
+        return;
+      }
+      if (this.isRemember) {
+        alert("Remember me is checked!");
+      }
+
+      alert("Form submitted successfully!");
+    },
+  },
 };
 </script>
 <template>
@@ -19,7 +41,7 @@ export default {
     <div
       class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
     >
-      <form class="space-y-6">
+      <form class="space-y-6" @submit.prevent="handleSubmit">
         <h5 class="text-xl font-medium text-gray-900">Sign in to our platform</h5>
         <div>
           <label for="email" class="block mb-2 text-sm font-medium text-gray-900"
