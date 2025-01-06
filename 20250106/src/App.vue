@@ -7,11 +7,36 @@ export default {
       rememberMe: false,
     };
   },
+  computed: {
+    formValid() {
+      return this.email.trim() !== "" && this.password.trim() !== "";
+    },
+  },
   methods: {
+    emailVaild() {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+      return emailRegex.test(this.email);
+    },
+    passwordValid() {
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$.!%*?&])[A-Za-z\d@$.!%*?&]{4,}$/;
+      return passwordRegex.test(this.password);
+    },
     handleSubmit() {
-      console.log("Email: ", this.email);
-      console.log("Password: ", this.password);
-      console.log("Remember me: ", this.rememberMe);
+      if (!this.emailVaild()) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+      if (!this.passwordValid()) {
+        alert(
+          "Password must be at least 4 characters long and contain at least one letter and one number."
+        );
+        return;
+      }
+      if (this.rememberMe) {
+        alert("Remember me is checked!");
+      }
+      alert("Form submitted successfully!");
     },
   },
 };
@@ -80,6 +105,7 @@ export default {
         <button
           type="submit"
           class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:cursor-not-allowed"
+          :disabled="!formValid"
         >
           Login to your account
         </button>
