@@ -8,12 +8,14 @@ import Form6 from "./Form6.vue";
 import Form7 from "./Form7.vue";
 import Form8 from "./Form8.vue";
 import Lecture01 from "./Lecture01.vue";
+import Lecture02 from "./Lecture02.vue";
 import Practice01 from "./Practice01.vue";
 
 export default {
   name: "App",
   components: {
     Lecture01,
+    Lecture02,
     Practice01,
     Form1,
     Form2,
@@ -32,6 +34,7 @@ export default {
 <template>
   <div class="wrapper">
     <Lecture01 />
+    <Lecture02 />
     <Practice01 />
     <Form1 />
     <Form2 />
