@@ -9,10 +9,8 @@ export default {
 };
 </script>
 <template>
-  <div>
-    <template v-for="(button, index) in buttons" :key="index">
-      <button>{{ button }}</button>
-    </template>
-  </div>
+  <button v-for="(button, index) in buttons" :key="index">
+    {{ button }}
+  </button>
 </template>
 <style scoped></style>

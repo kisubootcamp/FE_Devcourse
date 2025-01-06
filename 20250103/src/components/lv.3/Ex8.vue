@@ -16,9 +16,9 @@ export default {
     <template v-for="(category, index) in categories" :key="index">
       <h1>{{ category.name }}</h1>
       <ul>
-        <template v-for="(item, index) in category.items">
+        <li v-for="(item, index) in category.items" :key="index">
           <h2>{{ item }}</h2>
-        </template>
+        </li>
       </ul>
     </template>
   </div>
