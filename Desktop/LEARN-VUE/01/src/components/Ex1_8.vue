@@ -10,7 +10,8 @@ export default {
 </script>
 <template>
   <p v-if="auth === '로그인 중'">로그인 중</p>
-  <p v-if="auth === '로그인 필요'">로그인 필요</p>
-  <p v-if="auth === '비밀번호 오류'">비밀번호 오류</p>
+  <p v-else-if="auth === '로그인 필요'">로그인 필요</p>
+  <p v-else-if="auth === '비밀번호 오류'">비밀번호 오류</p>
+  <p v-else>로그인 성공</p>
 </template>
 <style scoped></style>
