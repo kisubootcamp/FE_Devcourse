@@ -15,6 +15,8 @@ export default {
       isDisplayed: false,
     };
   },
+  // computed로 풀기
+  // displayCustomer() { this.customerList = showAll ? this.customerList : this.customerList.slice(0,5)}
   created() {
     this.displayedCustomers = this.customerList.slice(0, 5);
   },
