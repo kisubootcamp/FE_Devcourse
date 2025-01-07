@@ -39,12 +39,21 @@ export default {
       //통과
       else {
         alert("Form submitted successfully!");
+        if (this.isChecked) {
+          localStorage.setItem("email", this.uemail);
+        }
         this.uemail = "";
         this.upassword = "";
         this.isChecked = false;
       }
       console.log(this.uemail, this.upassword, this.isChecked);
     },
+  },
+  mounted() {
+    const rememberedEmail = localStorage.getItem("email");
+    if (rememberedEmail) {
+      this.uemail = rememberedEmail;
+    }
   },
 };
 </script>
