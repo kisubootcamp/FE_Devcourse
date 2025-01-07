@@ -15,7 +15,7 @@ export default {
     },
     copyText() {
       navigator.clipboard.writeText(this.text);
-      alert("복사완료!");
+      alert("복사완료!!");
     },
     resetText() {
       this.text = "";
