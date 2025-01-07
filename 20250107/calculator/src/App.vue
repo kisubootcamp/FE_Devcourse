@@ -5,13 +5,11 @@ export default {
     return {
       input: "",
       value: 0,
-      isShown: true,
       operator: "",
     };
   },
   methods: {
     handleChange(event) {
-      this.isShown = true;
       this.input += event.target.value;
     },
     handleInit() {
@@ -54,7 +52,7 @@ export default {
 <template>
   <div class="calculator">
     <form name="forms" @click="handleChange">
-      <input type="text" name="output" readonly :value="isShown ? input : ''" />
+      <input type="text" name="output" readonly :value="input" />
       <input type="button" class="clear" value="C" @click.stop="handleInit" />
       <input
         type="button"
