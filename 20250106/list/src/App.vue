@@ -1,7 +1,56 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      customers: [
+        {
+          name: "Neil Sims",
+          email: "email@windster.com",
+          amount: "$320",
+        },
+        {
+          name: "James",
+          email: "james@gmail.com",
+          amount: "$250",
+        },
+        {
+          name: "Smith",
+          email: "smith@gmail.com",
+          amount: "$600",
+        },
+        {
+          name: "Mike",
+          email: "mike@gmail.com",
+          amount: "$200",
+        },
+        {
+          name: "Yarn",
+          email: "yarn@gmail.com",
+          amount: "$140",
+        },
+        {
+          name: "Npm",
+          email: "npm@gmail.com",
+          amount: "$220",
+        },
+        {
+          name: "Han",
+          email: "han@gmail.com",
+          amount: "$450",
+        },
+      ],
+      showAll: false,
+    };
+  },
+  computed: {
+    limitedCustomers() {
+      return this.showAll ? this.customers : this.customers.slice(0, 5);
+    },
+  },
+  methods: {
+    viewAll() {
+      this.showAll = true;
+    },
   },
 };
 </script>
@@ -16,31 +65,32 @@ export default {
         >
           Latest Customers
         </h5>
-        <a
-          href="#"
+        <button
+          @click="viewAll"
+          v-show="!showAll"
           class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
         >
           View all
-        </a>
+        </button>
       </div>
       <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-          <li class="py-3 sm:py-4">
+          <li v-for="customer in limitedCustomers" class="py-3 sm:py-4">
             <div class="flex items-center">
               <div class="flex-1 min-w-0 ms-4">
                 <p
                   class="text-sm font-medium text-gray-900 truncate dark:text-white"
                 >
-                  Neil Sims
+                  {{ customer.name }}
                 </p>
                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                  email@windster.com
+                  {{ customer.email }}
                 </p>
               </div>
               <div
                 class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
               >
-                $320
+                {{ customer.amount }}
               </div>
             </div>
           </li>
