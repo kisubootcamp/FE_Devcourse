@@ -5,13 +5,42 @@ export default {
       email: "",
       password: "",
       check: false,
+      emailRegex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      passwordRegex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{4,})/,
     };
   },
   methods: {
+    validateEmail() {
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailValid.test(email);
+    },
+    validatePassword() {
+      const passwordValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{4,}$/;
+      return passwordValid.test(this.password);
+    },
     handleSubmit() {
+      if (!this.validateEmail(this.email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+      if (!this.validatePassword(this.password)) {
+        alert(
+          "Password must be at least 4 characters long and contain at least one letter and one number."
+        );
+        return;
+      }
+      if (this.check) {
+        alert("Remember me is checked!");
+      }
+      alert("Form submitted successfully!");
       console.log(this.email);
       console.log(this.password);
       console.log(this.check);
+    },
+  },
+  computed: {
+    isFormValid() {
+      return this.email !== "" && this.password !== "";
     },
   },
 };
@@ -78,6 +107,7 @@ export default {
           >
         </div>
         <button
+          :disabled="!isFormValid"
           type="submit"
           class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-300 disabled:cursor-not-allowed"
         >
