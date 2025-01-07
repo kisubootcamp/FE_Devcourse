@@ -47,6 +47,8 @@ export default {
           this.valueB = Number(this.valueA) + Number(this.valueB);
         else if (this.operator === "-")
           this.valueB = Number(this.valueA) - Number(this.valueB);
+        this.valueA = "";
+        this.operator = null;
       } else {
         this.valueA = "";
         this.valueB = "";
