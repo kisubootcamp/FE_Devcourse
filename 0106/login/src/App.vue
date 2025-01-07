@@ -1,4 +1,6 @@
 <script>
+let savedEmail = "";
+
 export default {
   name: "App",
   data() {
@@ -7,6 +9,13 @@ export default {
       password: "",
       check: false,
     };
+  },
+  mounted() {
+    if (savedEmail) {
+      this.email = savedEmail;
+      this.check = true;
+      console.log("Email restored:", this.email);
+    }
   },
   methods: {
     handlesubmit() {
@@ -23,10 +32,22 @@ export default {
         );
         return;
       }
+
+      if (this.check) {
+        savedEmail = this.email;
+        console.log("Email saved:", savedEmail);
+      } else {
+        this.email = "";
+      }
+      this.password = "";
       alert("Form submitted successfully!");
     },
     checkRemeber() {
-      alert("Remember me is checked!");
+      this.check = !this.check;
+      if (!this.check) {
+        savedEmail = "";
+        console.log("Remember me unchecked. Email cleared.");
+      }
     },
   },
   computed: {
@@ -114,4 +135,3 @@ export default {
     </div>
   </div>
 </template>
-n
