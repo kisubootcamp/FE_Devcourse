@@ -2,59 +2,68 @@
 export default {
   data() {
     return {
-      currentValue: "",
-      typingValue: "",
-      expression: "",
+      output: null,
+      prev: null,
+      cur: null,
+      operator: null,
     };
   },
-  computed: {
-    value() {
-      if (this.expression) return this.typingValue;
-      else return this.currentValue;
-    },
-  },
   methods: {
-    handleReset() {
-      this.currentValue = "";
-      this.typingValue = "";
-      this.expression = "";
-    },
-    handleTypingNumber(num) {
-      if (this.expression) this.typingValue += num;
-      else this.currentValue += num;
-    },
-    handleTypingExpression(ex) {
-      this.expression = ex;
-    },
-    handleSubmit() {
-      if (!this.expression) return;
-      if (!this.typingValue) {
-        this.expression = "";
+    operation(event) {
+      const n = event.target.value;
+
+      if (n === "C") {
+        this.output = null;
+        this.prev = null;
+        this.cur = null;
+        this.operator = null;
         return;
       }
-      switch (this.expression) {
-        case "/":
-          this.currentValue =
-            Number(this.currentValue) / Number(this.typingValue);
-          break;
-        case "*":
-          this.currentValue =
-            Number(this.currentValue) * Number(this.typingValue);
-          break;
-        case "-":
-          this.currentValue =
-            Number(this.currentValue) - Number(this.typingValue);
-          break;
-        case "+":
-          this.currentValue =
-            Number(this.currentValue) + Number(this.typingValue);
-          break;
-        default:
-          console.error("Invalid operation:", this.expression);
-          break;
+
+      if (["+", "-", "*", "/", "="].includes(n)) {
+        if (!this.cur && !this.prev) {
+          alert("숫자 먼저 입력하세요");
+          return;
+        }
+        if (this.operator !== null && !this.cur) {
+          alert("사칙연산 기호는 연달아 누를 수 없습니다.");
+          return;
+        }
+        if (n === "=" && this.prev === this.cur) return;
+
+        this.cur = Number(this.cur);
+
+        if (this.operator !== null) {
+          switch (this.operator) {
+            case "+":
+              this.prev = this.prev + this.cur;
+              break;
+            case "-":
+              this.prev = this.prev - this.cur;
+              break;
+            case "*":
+              this.prev = this.prev * this.cur;
+              break;
+            case "/":
+              this.prev = this.prev / this.cur;
+              break;
+          }
+
+          if (n === "=") {
+            this.output = this.prev;
+            this.operator = null;
+            this.cur = this.prev;
+          }
+        }
+
+        this, (output = null);
+        this.operator = n;
+        this.prev = this.cur;
+        this.cur = null;
+        return;
       }
-      this.typingValue = "";
-      this.expression = "";
+      this.cur = this.cur === null ? n : (this.cur += n);
+      this.output = this.cur;
     },
   },
 };
@@ -62,53 +71,28 @@ export default {
 <template>
   <div class="calculator">
     <form name="forms">
-      <input type="text" name="output" readonly v-model="value" />
-      <input type="button" class="clear" value="C" @click="handleReset" />
-      <input
-        type="button"
-        class="operator"
-        value="/"
-        @click="handleTypingExpression('/')"
-      />
-      <input type="button" value="1" @click="handleTypingNumber('1')" />
-      <input type="button" value="2" @click="handleTypingNumber('2')" />
-      <input type="button" value="3" @click="handleTypingNumber('3')" />
-      <input
-        type="button"
-        class="operator"
-        value="*"
-        @click="handleTypingExpression('*')"
-      />
-      <input type="button" value="4" @click="handleTypingNumber('4')" />
-      <input type="button" value="5" @click="handleTypingNumber('5')" />
-      <input type="button" value="6" @click="handleTypingNumber('6')" />
-      <input
-        type="button"
-        class="operator"
-        value="+"
-        @click="handleTypingExpression('+')"
-      />
-      <input type="button" value="7" @click="handleTypingNumber('7')" />
-      <input type="button" value="8" @click="handleTypingNumber('8')" />
-      <input type="button" value="9" @click="handleTypingNumber('9')" />
-      <input
-        type="button"
-        class="operator"
-        value="-"
-        @click="handleTypingExpression('-')"
-      />
-      <input
-        type="button"
-        class="dot"
-        value="."
-        @click="handleTypingNumber('.')"
-      />
-      <input type="button" value="0" @click="handleTypingNumber('0')" />
+      <input v-model="output" type="text" name="output" readonly />
+      <input type="button" class="clear" value="C" @click="operation" />
+      <input type="button" class="operator" value="/" @click="operation" />
+      <input type="button" value="1" @click="operation" />
+      <input type="button" value="2" @click="operation" />
+      <input type="button" value="3" @click="operation" />
+      <input type="button" class="operator" value="*" @click="operation" />
+      <input type="button" value="4" @click="operation" />
+      <input type="button" value="5" @click="operation" />
+      <input type="button" value="6" @click="operation" />
+      <input type="button" class="operator" value="+" @click="operation" />
+      <input type="button" value="7" @click="operation" />
+      <input type="button" value="8" @click="operation" />
+      <input type="button" value="9" @click="operation" />
+      <input type="button" class="operator" value="-" @click="operation" />
+      <input type="button" class="dot" value="." @click="operation" />
+      <input type="button" value="0" @click="operation" />
       <input
         type="button"
         class="operator result"
         value="="
-        @click="handleSubmit"
+        @click="operation"
       />
     </form>
   </div>
