@@ -46,6 +46,8 @@ export default {
       }
       this.cur = this.cur === null ? n : (this.cur += n);
       this.output = this.cur;
+      // 1111
+      // 2222
     },
   },
 };
