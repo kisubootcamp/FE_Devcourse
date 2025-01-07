@@ -35,9 +35,19 @@ export default {
       }
       if (this.rememberMe) {
         alert("Remember me is checked!");
+        localStorage.setItem("savedEmail", this.email);
+      } else {
+        localStorage.removeItem("savedEmail");
       }
       alert("Form submitted successfully!");
     },
+  },
+  mounted() {
+    const savedEmail = localStorage.getItem("savedEmail");
+    if (savedEmail) {
+      this.email = savedEmail;
+      this.rememberMe = true;
+    }
   },
 };
 </script>
