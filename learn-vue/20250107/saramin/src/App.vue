@@ -17,15 +17,11 @@ export default {
       let total = 0;
       let totalWithoutSpace = 0;
 
-      const codes = contents.split("").map((_, idx) => contents.charCodeAt(idx));
-      for (let code of codes) {
-        // 한글일 때
-        if ((code >= 0xac00 && code <= 0xd7a3) || (code >= 0x3131 && code <= 0x318e)) {
+      for (let content of contents) {
+        if (/[ㄱ-ㅎㅏ-ㅣ가-힣]/.test(content)) {
           total += 2;
           totalWithoutSpace += 2;
-        }
-        // 공백 또는 줄 바꿈일 때
-        else if (code === 0x0020 || code === 0x000a) {
+        } else if (/[\s\n]/.test(content)) {
           total += 1;
         } else {
           total += 1;
