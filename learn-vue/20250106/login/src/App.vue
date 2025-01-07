@@ -7,6 +7,12 @@ export default {
       isRemember: false,
     };
   },
+  beforeMount() {
+    const storedEmail = localStorage.getItem("email");
+    if (storedEmail) {
+      this.email = storedEmail;
+    }
+  },
   computed: {
     isDisabled() {
       return !this.email.length || !this.password.length;
@@ -32,6 +38,7 @@ export default {
       }
 
       alert("Form submitted successfully!");
+      localStorage.setItem("email", this.email);
     },
   },
 };
