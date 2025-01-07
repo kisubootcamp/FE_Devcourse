@@ -8,6 +8,9 @@ export default {
       remember: false,
     };
   },
+  created() {
+    this.email = localStorage.getItem("email") || "";
+  },
   methods: {
     handleLogin() {
       console.log(this.email, this.password, this.remember);
@@ -37,7 +40,12 @@ export default {
       return true;
     },
     isRemember() {
-      if (!this.remember) alert("Remember me is checked!");
+      if (!this.remember) {
+        alert("Remember me is checked!");
+        // 로컬 스토리지 저장
+        localStorage.setItem("email", this.email);
+      } else {
+      }
     },
   },
   computed: {
