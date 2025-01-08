@@ -16,8 +16,29 @@
     },
     methods: {
       handleCopy() {
-        navigator.clipboard.writeText(this.content);
-        alert('복사가 완료되었습니다.');
+        if (navigator.clipboard) {
+          navigator.clipboard
+            .writeText(this.content)
+            .then(() => {
+              alert('복사가 완료되었습니다.');
+            })
+            .catch(() => {
+              alert('복사에 실패했습니다.');
+            });
+        } else {
+          const textArea = document.createElement('textarea');
+          textArea.value = this.inputText;
+          document.body.appendChild(textArea);
+          textArea.select();
+          const successful = document.execCommand('copy');
+          document.body.removeChild(textArea);
+
+          if (successful) {
+            alert('복사가 완료되었습니다.');
+          } else {
+            alert('복사에 실패했습니다.');
+          }
+        }
       },
       handleClear() {
         this.content = '';
