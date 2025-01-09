@@ -2,7 +2,7 @@
 export default {
   data() {
     return {
-      email: "",
+      email: localStorage.getItem("uemail") || "",
       password: "",
       remember: false,
     };
@@ -26,6 +26,11 @@ export default {
       }
 
       alert("Form submitted successfully!");
+      if (this.remember) {
+        localStorage.setItem("uemail", this.email);
+      } else {
+        localStorage.removeItem("uemail");
+      }
     },
     handleRememberClick() {
       if (this.remember) {
