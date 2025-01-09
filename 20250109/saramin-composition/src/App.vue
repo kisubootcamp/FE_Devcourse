@@ -1,68 +1,64 @@
-<script>
-export default {
-  name: "App",
-  data() {
-    return {
-      inputText: "",
-    };
-  },
-  computed: {
-    // 공백 포함 글자수
-    inputLength() {
-      return this.inputText.length;
-    },
-    // 공백 포함 바이트수
-    inputBytes() {
-      return this.inputText
-        .split("")
-        .reduce((acc, cur) => acc + (cur.charCodeAt(0) > 127 ? 2 : 1), 0);
-    },
-    // 공백 제거 글자수
-    inputWithoutEmptyLength() {
-      return this.inputText.replaceAll(" ", "").length;
-    },
-    // 공백 제거 바이트
-    inputWithoutEmptyBytes() {
-      return this.inputText
-        .replaceAll(" ", "")
-        .split("")
-        .reduce((acc, cur) => acc + (cur.charCodeAt(0) > 127 ? 2 : 1), 0);
-    },
-  },
-  methods: {
-    handleChange(event) {
-      this.inputText = event.target.value;
-    },
-    copyText() {
-      if (navigator.clipboard) {
-        navigator.clipboard
-          .writeText(this.inputText)
-          .then(() => {
-            alert("복사되었습니다.");
-          })
-          .catch((err) => {
-            alert("복사에 실패했습니다.", err.message);
-          });
-      } else {
-        // 구형 브라우저
-        const textArea = document.createElement("textarea");
-        textArea.value = this.inputText;
-        document.body.appendChild(textArea);
-        textArea.select();
-        const successful = document.execCommand("copy");
-        document.body.removeChild(textArea);
+<script setup>
+import { computed, ref } from "vue";
 
-        if (successful) {
-          alert("복사에 성공했습니다.");
-        } else {
-          alert("복사 실패");
-        }
-      }
-    },
-    clear() {
-      this.inputText = "";
-    },
-  },
+const inputText = ref("");
+
+// 공백 포함 글자수
+const inputLength = computed(() => inputText.value.length);
+
+// 공백 포함 바이트수
+const inputBytes = computed(() =>
+  inputText.value
+    .split("")
+    .reduce((acc, cur) => acc + (cur.charCodeAt(0) > 127 ? 2 : 1), 0)
+);
+
+// 공백 제거 글자수
+const inputWithoutEmptyLength = computed(
+  () => inputText.value.replaceAll(" ", "").length
+);
+
+// 공백 제거 바이트
+const inputWithoutEmptyBytes = computed(() =>
+  inputText.value
+    .replaceAll(" ", "")
+    .split("")
+    .reduce((acc, cur) => acc + (cur.charCodeAt(0) > 127 ? 2 : 1), 0)
+);
+
+const handleChange = (event) => {
+  inputText.value = event.target.value;
+};
+
+const copyText = () => {
+  if (navigator.clipboard) {
+    navigator.clipboard
+      .writeText(inputText.value)
+      .then(() => {
+        alert("복사되었습니다.");
+      })
+      .catch((err) => {
+        alert("복사에 실패했습니다.", err.message);
+      });
+  } else {
+    // 구형 브라우저
+    const textArea = document.createElement("textarea");
+    textArea.value = inputText.value;
+    document.body.appendChild(textArea);
+    textArea.select();
+    const successful = document.execCommand("copy");
+    document.body.removeChild(textArea);
+
+    if (successful) {
+      alert("복사에 성공했습니다.");
+    } else {
+      alert("복사 실패");
+    }
+  }
+};
+
+const clear = () => {
+  inputText.value = "";
 };
 </script>
 <template>
