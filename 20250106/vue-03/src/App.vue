@@ -6,21 +6,19 @@
         email: '',
         password: '',
         remember: false,
+        storageKey: 'vue-03-email',
       };
+    },
+    created() {
+      this.email = sessionStorage.getItem(this.storageKey) || '';
     },
     methods: {
       handleSubmit() {
-        console.log('Email: ', this.email);
-        console.log('Password: ', this.password);
-        console.log('Remember me: ', this.remember);
-
-        // 입력된 이메일이 올바른 이메일 형식이 아니라면 alert창 띄우기
         if (!this.isValidateEmail) {
           alert('Please enter a valid email address.');
           return;
         }
 
-        // 입력된 비밀번호가 올바르지 않으면 alert창 띄우기
         if (!this.isValidatePassword) {
           alert(
             'Password must be at least 4 characters long and contain at least one letter and one number.'
@@ -28,12 +26,11 @@
           return;
         }
 
-        // remember me를 체크했다면 alert창 띄우기
         if (this.remember) {
           alert('Remember me is checked!');
+          sessionStorage.setItem(this.storageKey, this.email);
         }
 
-        // 모든 조건에 통과하면 alert창 띄우기
         alert('Form submitted successfully!');
       },
     },
