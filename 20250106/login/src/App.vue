@@ -8,6 +8,7 @@ export default {
       checkbox: false,
     };
   },
+
   methods: {
     handleSubmit() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -25,6 +26,7 @@ export default {
       }
       if (this.checkbox) {
         alert("Remember me is checked!");
+        localStorage.setItem("email", this.email);
       }
       alert("Form submitted successfully!");
     },
@@ -36,6 +38,10 @@ export default {
       );
     },
   },
+  mounted() {
+    const savedEmail = localStorage.getItem("email");
+    if (savedEmail) this.email = savedEmail;
+  },
 };
 </script>
 <template>
@@ -43,7 +49,7 @@ export default {
     <div
       class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
     >
-      <form class="space-y-6" @submit.prevent="handleSubmit">
+      <form class="space-y-6" @submit="handleSubmit">
         <h5 class="text-xl font-medium text-gray-900">
           Sign in to our platform
         </h5>
