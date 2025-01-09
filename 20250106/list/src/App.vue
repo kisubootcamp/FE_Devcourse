@@ -66,16 +66,20 @@ export default {
           Latest Customers
         </h5>
         <button
-          @click="viewAll"
           v-show="!showAll"
           class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
+          @click="viewAll"
         >
           View all
         </button>
       </div>
       <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-          <li v-for="customer in limitedCustomers" class="py-3 sm:py-4">
+          <li
+            v-for="customer in limitedCustomers"
+            :key="limitedCustomers.id"
+            class="py-3 sm:py-4"
+          >
             <div class="flex items-center">
               <div class="flex-1 min-w-0 ms-4">
                 <p
