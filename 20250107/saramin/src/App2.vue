@@ -1,16 +1,30 @@
 <script>
+import { computed, ref } from "vue";
+
 export default {
-  name: "App",
-  data() {
-    return {
-      text: "",
+  setup() {
+    const text = ref("");
+
+    const inputLength = computed(() => text.value.length);
+    const inputBytes = computed(() =>
+      text.value
+        .split("")
+        .reduce((prev, cur) => prev + (cur.charCodeAt(0) > 127 ? 2 : 1), 0)
+    );
+    const inputWithoutlength = computed(
+      () => text.value.replace(/\s+/g, "").length
+    );
+    const inputWithoutLengthBytes = computed(() =>
+      text.value
+        .replace(/\s+/g, "")
+        .split("")
+        .reduce((prev, cur) => prev + (cur.charCodeAt(0) > 127 ? 2 : 1), 0)
+    );
+
+    const handlechange = (event) => {
+      text.value = event.target.value;
     };
-  },
-  methods: {
-    handleChange(event) {
-      this.text = event.target.value;
-    },
-    async handleCopyAll() {
+    const handleCopyAll = async () => {
       if (this.text.trim().length === 0) {
         alert("복사할 텍스트가 없습니다!");
         return;
@@ -21,30 +35,21 @@ export default {
       } catch (error) {
         alert("복사 실패!");
       }
-    },
-    handleInit() {
-      this.text = "";
-    },
-  },
+    };
+    const handleInit = () => {
+      text.value = "";
+    };
 
-  computed: {
-    inputLength() {
-      return this.text.length;
-    },
-    inputBytes() {
-      return this.text
-        .split("")
-        .reduce((prev, cur) => prev + (cur.charCodeAt(0) > 127 ? 2 : 1), 0);
-    },
-    inputWithoutLength() {
-      return this.text.replace(/\s+/g, "").length;
-    },
-    inputWithoutBytes() {
-      return this.text
-        .replace(/\s+/g, "")
-        .split("")
-        .reduce((prev, cur) => prev + (cur.charCodeAt(0) > 127 ? 2 : 1), 0);
-    },
+    return {
+      text,
+      inputLength,
+      inputBytes,
+      inputWithoutlength,
+      inputWithoutLengthBytes,
+      handlechange,
+      handleCopyAll,
+      handleInit,
+    };
   },
 };
 </script>

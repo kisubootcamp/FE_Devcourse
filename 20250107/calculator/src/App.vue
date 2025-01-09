@@ -10,40 +10,57 @@ export default {
   },
   methods: {
     handleChange(event) {
+      if (typeof event.target.value !== "string") return;
       this.input += event.target.value;
     },
     handleInit() {
       this.input = "";
-      this.value = "";
+      this.value = 0;
+      this.operator = "";
     },
-    //  120 + 3 - 10 =
+
+    handleDot() {
+      if (this.input === "" || (this.input.match(/\./g) || []).length > 0) {
+        console.log(this.input);
+
+        alert("잘못된 입력입니다!");
+        return;
+      }
+
+      this.input += ".";
+    },
+    //  10 + 10 - 5
     handleClickOperator(event) {
+      if (this.input === "") {
+        alert("숫자 먼저 입력하세요!");
+        return;
+      }
+      if (this.operator === ".") {
+        alert("숫자를 마저 입력하세요!");
+        return;
+      }
       switch (this.operator) {
         case "+":
           this.value += Number(this.input);
-          this.input = "";
           break;
         case "-":
           this.value -= Number(this.input);
-          this.input = "";
           break;
         case "*":
           this.value *= Number(this.input);
-          this.input = "";
           break;
         case "/":
           this.value /= Number(this.input);
-          this.input = "";
           break;
         default:
           this.value = Number(this.input);
-          this.input = "";
           break;
       }
-
+      this.input = "";
       this.operator = event.target.value;
       if (this.operator === "=") {
         this.input = this.value;
+        this.operator = "";
       }
     },
   },
@@ -87,12 +104,7 @@ export default {
         value="-"
         @click.stop="handleClickOperator"
       />
-      <input
-        type="button"
-        class="dot"
-        value="."
-        @click.stop="handleClickOperator"
-      />
+      <input type="button" class="dot" value="." @click.stop="handleDot" />
       <input type="button" value="0" />
       <input
         type="button"
