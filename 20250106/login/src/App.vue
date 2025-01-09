@@ -48,7 +48,6 @@
                 type="checkbox"
                 v-model="uremember"
                 class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
-                @change="checkRemember"
               />
             </div>
             <label for="remember" class="ms-2 text-sm font-medium text-gray-900"
@@ -95,8 +94,13 @@ export default {
       // this.validateEmail();
       // this.validatePassword();
 
-      if (this.validateEmail() && this.validatePassword())
+      if (this.validateEmail() && this.validatePassword()) {
+        if (this.uremember) window.alert("Remember me is checked!");
         window.alert("Form submitted successfully!");
+        if (this.uremember) localStorage.setItem("uemail", this.uemail);
+        else if (!this.uremember && localStorage.getItem("uemail"))
+          localStorage.removeItem("uemail");
+      }
     },
     validateEmail() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -117,9 +121,12 @@ export default {
         return false;
       }
     },
-    checkRemember() {
-      if (this.uremember) window.alert("Remember me is checked!");
-    },
+  },
+  created() {
+    if (localStorage.getItem("uemail")) {
+      this.uemail = localStorage.getItem("uemail");
+      this.uremember = true;
+    }
   },
 };
 </script>
