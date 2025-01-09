@@ -4,13 +4,18 @@ export default {
   data() {
     return {
       customers: [
-        { name: "Neil Sims", email: "email@windster.com", amount: "$320" },
-        { name: "James", email: "james@gmail.com", amount: "$250" },
-        { name: "Smith", email: "smith@gmail.com", amount: "$600" },
-        { name: "Mike", email: "mike@gmail.com", amount: "$200" },
-        { name: "Yarn", email: "yarn@gmail.com", amount: "$140" },
-        { name: "Npm", email: "npm@gmail.com", amount: "$220" },
-        { name: "Han", email: "han@gmail.com", amount: "$450" },
+        {
+          id: 1,
+          name: "Neil Sims",
+          email: "email@windster.com",
+          amount: "$320",
+        },
+        { id: 2, name: "James", email: "james@gmail.com", amount: "$250" },
+        { id: 3, name: "Smith", email: "smith@gmail.com", amount: "$600" },
+        { id: 4, name: "Mike", email: "mike@gmail.com", amount: "$200" },
+        { id: 5, name: "Yarn", email: "yarn@gmail.com", amount: "$140" },
+        { id: 6, name: "Npm", email: "npm@gmail.com", amount: "$220" },
+        { id: 7, name: "Han", email: "han@gmail.com", amount: "$450" },
       ],
     };
   },
