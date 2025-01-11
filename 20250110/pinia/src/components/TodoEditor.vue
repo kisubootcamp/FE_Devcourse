@@ -1,20 +1,17 @@
 <script setup>
-// Props와 Emits 정의
-const props = defineProps({ inputText: String });
-const emit = defineEmits(["addTodo", "updateInputText"]);
+import { useTodoStore } from "@/stores/todoStore";
+import { storeToRefs } from "pinia";
 
-// intputText 업데이트
-const handleInputText = (e) => {
-  emit("updateInputText", e.target.value); // 부모의 상태 업데이트
-};
+const todoStore = useTodoStore();
 
+const { inputText } = storeToRefs(todoStore);
+
+const { addTodo, handleInputText } = todoStore;
+// 할 일 목록에 새로운 할 일 추가
 const handleAddTodo = () => {
-  emit("addTodo", { id: Date.now(), text: props.inputText, done: false });
-  emit("updateInputText", ""); // 입력한 할 일 초기화
+  addTodo({ id: Date.now(), text: inputText.value, done: false });
   document.querySelector("input").focus();
 };
-
-// 할 일 목록에 새로운 할 일 추가
 </script>
 <template>
   <form @submit.prevent className="flex p-4">

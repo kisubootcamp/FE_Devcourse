@@ -1,14 +1,5 @@
-<script>
+<script setup>
 import Todo from "./components/Todo.vue";
-
-export default {
-  components: {
-    Todo,
-  },
-  data() {
-    return {};
-  },
-};
 </script>
 <template>
   <Todo />

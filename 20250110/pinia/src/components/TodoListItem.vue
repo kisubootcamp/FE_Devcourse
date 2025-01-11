@@ -1,19 +1,12 @@
 <script setup>
-import { handleError } from "vue";
+import { useTodoStore } from "@/stores/todoStore";
+const todoStore = useTodoStore();
+
+const { toggleDone, deleteTodo } = todoStore;
 
 const props = defineProps({
   todo: { id: Number, text: String, done: Boolean },
 });
-
-const emit = defineEmits(["toggleDone", "deleteTodo"]);
-
-const toggleDone = (id) => {
-  emit("toggleDone", id);
-};
-
-const handleDelete = (id) => {
-  emit("deleteTodo", id);
-};
 </script>
 <template>
   <li
@@ -30,7 +23,7 @@ const handleDelete = (id) => {
     </div>
     <button
       className="text-red-500 hover:text-red-700 ml-4"
-      @click="handleDelete(todo.id)"
+      @click="deleteTodo(todo.id)"
     >
       Delete
     </button>

@@ -1,27 +1,14 @@
 <script setup>
+import { useTodoStore } from "@/stores/todoStore";
+import { storeToRefs } from "pinia";
 import TodoListItem from "./TodoListItem.vue";
-const props = defineProps({ todoList: Array });
-
-const emit = defineEmits(["toggleDone", "deleteTodo"]);
-
-const toggleDone = (id) => {
-  emit("toggleDone", id);
-};
-
-const handleDelete = (id) => {
-  emit("deleteTodo", id);
-};
+const todoStore = useTodoStore();
+const { todoList } = storeToRefs(todoStore);
 </script>
 
 <template>
   <ul className="divide-y divide-gray-200">
-    <TodoListItem
-      v-for="todo in todoList"
-      :key="todo.id"
-      :todo="todo"
-      @toggleDone="toggleDone"
-      @deleteTodo="handleDelete"
-    />
+    <TodoListItem v-for="todo in todoList" :key="todo.id" :todo="todo" />
   </ul>
 </template>
 <style></style>
