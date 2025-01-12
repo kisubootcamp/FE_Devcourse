@@ -1,50 +1,55 @@
 <script>
+import { computed, ref } from "vue";
+
 export default {
-  name: "App",
-  data() {
-    return {
-      text: "",
+  setup() {
+    const text = ref("");
+
+    const inputLength = computed(() => text.value.length);
+    const inputBytes = computed(() =>
+      text.value
+        .split("")
+        .reduce((prev, cur) => prev + (cur.charCodeAt(0) > 127 ? 2 : 1), 0)
+    );
+    const inputWithoutlength = computed(
+      () => text.value.replace(/\s+/g, "").length
+    );
+    const inputWithoutLengthBytes = computed(() =>
+      text.value
+        .replace(/\s+/g, "")
+        .split("")
+        .reduce((prev, cur) => prev + (cur.charCodeAt(0) > 127 ? 2 : 1), 0)
+    );
+
+    const handlechange = (event) => {
+      text.value = event.target.value;
     };
-  },
-  methods: {
-    handleChange(event) {
-      this.text = event.target.value;
-    },
-    async handleCopyAll() {
-      if (this.text.trim().length === 0) {
+    const handleCopyAll = async () => {
+      if (text.value.trim().length === 0) {
         alert("복사할 텍스트가 없습니다!");
         return;
       }
-      await navigator.clipboard.writeText(this.text);
+      await navigator.clipboard.writeText(text.value);
       try {
         alert("복사 되었습니다!");
       } catch (error) {
         alert("복사 실패!");
       }
-    },
-    handleInit() {
-      this.text = "";
-    },
-  },
+    };
+    const handleInit = () => {
+      text.value = "";
+    };
 
-  computed: {
-    inputLength() {
-      return this.text.length;
-    },
-    inputBytes() {
-      return this.text
-        .split("")
-        .reduce((prev, cur) => prev + (cur.charCodeAt(0) > 127 ? 2 : 1), 0);
-    },
-    inputWithoutLength() {
-      return this.text.replace(/\s+/g, "").length;
-    },
-    inputWithoutBytes() {
-      return this.text
-        .replace(/\s+/g, "")
-        .split("")
-        .reduce((prev, cur) => prev + (cur.charCodeAt(0) > 127 ? 2 : 1), 0);
-    },
+    return {
+      text,
+      inputLength,
+      inputBytes,
+      inputWithoutlength,
+      inputWithoutLengthBytes,
+      handlechange,
+      handleCopyAll,
+      handleInit,
+    };
   },
 };
 </script>
@@ -54,7 +59,7 @@ export default {
       <h1 class="text-2xl font-bold text-center mb-4">글자 수 세기</h1>
       <textarea
         :value="text"
-        @input="handleChange"
+        @input="handlechange"
         placeholder="여기에 텍스트를 입력하세요..."
         class="w-full h-64 p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       ></textarea>
@@ -72,10 +77,12 @@ export default {
 
         <p>
           공백 제외:
-          <span class="text-blue-600 font-bold">{{ inputWithoutLength }}</span>
+          <span class="text-blue-600 font-bold">{{ inputWithoutlength }}</span>
           자
 
-          <span class="text-blue-600 font-bold">{{ inputWithoutBytes }}</span>
+          <span class="text-blue-600 font-bold">{{
+            inputWithoutLengthBytes
+          }}</span>
           byte
         </p>
       </div>

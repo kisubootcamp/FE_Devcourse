@@ -38,9 +38,12 @@ export default {
       );
     },
   },
-  mounted() {
+  created() {
     const savedEmail = localStorage.getItem("email");
-    if (savedEmail) this.email = savedEmail;
+    if (savedEmail) {
+      this.email = savedEmail;
+      this.checkbox = true;
+    }
   },
 };
 </script>
