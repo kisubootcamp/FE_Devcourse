@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 
+// todo 변수및 함수 전역상태 관리
 export const useTodoStore = defineStore("todoStore", () => {
   const text = ref("");
   const todos = reactive([]);
