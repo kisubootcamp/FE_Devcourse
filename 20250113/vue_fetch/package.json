@@ -1,0 +1,23 @@
+{
+  "name": "vue_fetch",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "db": "json-server --watch src/db.json",
+    "db:delay": "json-server --watch src/db.json --delay 2000"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "json-server": "^0.17.0",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.0.5",
+    "vite-plugin-vue-devtools": "^7.6.8"
+  }
+}
